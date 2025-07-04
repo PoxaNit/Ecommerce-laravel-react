@@ -1,0 +1,97 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use App\Models\Cart;
+
+class UserController extends Controller
+{
+
+    public function show ($user_id) {
+
+        $user = User::findOrFail($user_id);
+
+        return response()->json([
+          "message" => "OK",
+          "data" => $user,
+          "success" => true
+        ], 200);
+
+    }
+
+    public function store (Request $request) {
+
+        $validated = $request->validate([
+          "name" => "required|string|max:255",
+          "email" => "required|string|max:255",
+          "password" => "required|string|max:255"
+        ]);
+
+        $hash = Hash::make($validated["password"]);
+
+        $data = [
+          "name" => $validated["name"],
+          "email" => $validated["email"],
+          "password" => $hash
+        ];
+
+        $user = User::create($data);
+
+        Cart::create(["user_id" => $user->id]);
+
+        return response()->json([
+          "message" => "Created!",
+          "data" => $user,
+          "success" => true
+        ], 201);
+
+    }
+
+    public function update (Request $request, $user_id) {
+
+        $validated = $request->validate([
+          "name" => "sometimes|string|max:255",
+          "email" => "sometimes|string|max:255",
+          "password" => "sometimes|string|max:255"
+        ]);
+
+
+        if (isset($validated["password"])):
+
+            $validated["password"] =
+            Hash::make($validated["password"]);
+
+        endif;
+
+        $user = User::findOrFail($user_id);
+
+        $user->update($validated);
+
+        $user->refresh();
+
+        return response()->json([
+          "message" => "Updated!",
+          "data" => $user,
+          "success" => true
+        ], 200);
+
+    }
+
+    public function delete ($id) {
+
+        $user = User::findOrFail($id);
+
+        $user->delete();
+
+        return response()->json([
+          "message" => "Deleted!",
+          "data" => null,
+          "success" => true
+        ], 204);
+
+    }
+
+}

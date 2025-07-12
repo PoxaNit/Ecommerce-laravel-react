@@ -47,6 +47,16 @@ class CartController extends Controller
 
         $cart_items = $cart->items;
 
+        if (! isset($cart_items[0])):
+
+            return response()->json([
+              "message" => "There is no items in the cart!",
+              "success" => true,
+              "data" => null
+            ], 200);
+
+        endif;
+
         foreach ($cart_items as $item):
 
             $item->delete();

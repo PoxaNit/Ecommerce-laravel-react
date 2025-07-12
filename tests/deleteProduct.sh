@@ -2,6 +2,6 @@
 
  token=$1
 
- curl -X GET \
+ curl -X DELETE \
       -H "Authorization: Bearer $token" \
-      http://localhost:8000/api/users/1/checkout
+      http://localhost:8000/api/products/51

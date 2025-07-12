@@ -1,0 +1,53 @@
+import React from "react";
+
+ function RegistrationForm ({
+   changeForm = () => {} // This is for when user changes from this form to login form
+ }) {
+
+     const form = React.useRef(null);
+
+     const createUser = React.useCallback(async () => {
+
+         const formData = new FormData(form.current);
+
+         const response = await fetch("http://localhost:8000/api/users", {
+           method:"POST",
+           body:formData
+         });
+
+         const json = await response.json();
+
+         console.log(`json: ${JSON.stringify(json)}`);
+
+     }, []);
+
+     return (
+       <>
+
+         <h1>Registration</h1>
+
+         <form ref={form}>
+
+           <label htmlfor="name">Name:</label>
+
+           <input type="text" id="name" name="name" />
+
+           <label htmlfor="email">Email:</label>
+
+           <input type="email" id="email" name="email" />
+
+           <label htmlfor="password">Password:</label>
+
+           <input type="password" id="password" name="password" />
+
+           <input type="button" onClick={() => changeForm()} value="Go to login" />
+
+           <input type="button" onClick={() => createUser()} value="Submit" />
+
+         </form>
+
+       </>
+     );
+ }
+
+ export default RegistrationForm;

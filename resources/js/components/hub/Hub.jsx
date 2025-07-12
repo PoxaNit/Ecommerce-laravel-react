@@ -1,21 +1,34 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import Account from "../account/Account.jsx";
 
  function Hub () {
 
-     return (
+     const [showAccount, setShowAccount] = React.useState(false);
 
-       <div>
+     if (showAccount) {
 
-           <h1>Hub</h1>
+         return <Account setShow={setShowAccount} />;
 
-           <button>Navigate to Home</button>
+     } else {
 
-           <button>Navigate to Store</button>
+         return (
 
-       </div>
+           <div>
 
-     );
+               <h1>Hub</h1>
+
+               <button>Navigate to Home</button>
+
+               <button>Navigate to Store</button>
+
+               <button onClick={() => setShowAccount(true)}>account</button>
+
+           </div>
+
+         );
+
+     }
 
  }
 

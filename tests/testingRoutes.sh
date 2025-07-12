@@ -1,4 +1,7 @@
 #!/bin/bash
 
+ token=$1
+
  curl -X GET \
-      http://localhost:8000/api/users/2/cart
+      -H "Authorization: Bearer $token" \
+      http://localhost:8000/api/products/51

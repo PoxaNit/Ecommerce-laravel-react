@@ -1,18 +1,18 @@
 import fetchProducts from "./fetchProducts.jsx";
 
- function getProducts () {
+ async function getProducts (token = "") {
 
      const localProducts = localStorage.getItem("products");
 
      if (localProducts) {
 
-         const json = JSON.stringify(localProducts);
+         const json = JSON.parse(localProducts);
 
          return json;
 
      } else {
 
-         const fetchedProducts = fetchProducts();
+         const fetchedProducts = await fetchProducts(token);
 
          return fetchedProducts;
 

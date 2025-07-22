@@ -6,11 +6,12 @@ import React from "react";
    price = 0,
    imageUrl = "",
    stock = 0,
+   parentCallerProductDetails = "Shop",
    viewDetails = () => {}
  }) {
 
      return (
-       <div onClick={() => viewDetails()}>
+       <div onClick={() => viewDetails(parentCallerProductDetails)}>
 
          <img src={imageUrl} alt="Product image" />
 

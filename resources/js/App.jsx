@@ -12,8 +12,8 @@ import NotAuthenticated from "./components/notAuthenticated/NotAuthenticated.jsx
      const [userEmail, setUserEmail] = React.useState("");
      const [userId, setUserId] = React.useState(0);
 
-localStorage.removeItem("token")
-localStorage.removeItem("user")
+localStorage.removeItem("token");
+
      const findToken = React.useCallback(async () => {
 
          const token = await localStorage.getItem("token");

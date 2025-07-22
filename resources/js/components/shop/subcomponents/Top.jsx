@@ -1,6 +1,9 @@
 import React from "react";
+import ShopContext from "../../../contexts/ShopContext.jsx";
 
  function Top ({closeShop}) {
+
+     const { setShowOptions } = React.useContext(ShopContext);
 
      return (
        <div>
@@ -9,7 +12,7 @@ import React from "react";
 
          <input type="text" placeholder="Search product" />
 
-         <button>Options</button>
+         <button onClick={() => setShowOptions(true)}>Options</button>
 
        </div>
      );

@@ -32,7 +32,7 @@ class ShoppingController extends Controller
 
         $cart = $user->cart;
 
-        if ( // If item already exists in cart with any quantity
+        if ( // If item already exists in cart in any quantity
             $cart_item = Cart_item::where("product_id", $product->id)
                          ->where("cart_id", $cart->id)
                          ->first()
@@ -50,12 +50,11 @@ class ShoppingController extends Controller
 
             $cart_item = Cart_item::create($validated);
 
-
         endif;
 
         return response()->json([
           "message" => "Product added to cart!",
-          "data" => $cart_item->product,
+          "data" => $cart->items,
           "success" => true
         ], 200);
 
@@ -95,9 +94,9 @@ class ShoppingController extends Controller
 
             return response()->json([
               "message" => "Product removed from cart!",
-              "data" => null,
+              "data" => $cart->items,
               "success" => true
-            ], 204);
+            ], 200);
 
         endif;
 
@@ -107,7 +106,7 @@ class ShoppingController extends Controller
 
         return response()->json([
           "message" => $cart_item->product->name . " removed from cart (" . $validated["quantity"] . " items)!",
-          "data" => $cart_item->product,
+          "data" => $cart->items,
           "success" => true
         ], 200);
 

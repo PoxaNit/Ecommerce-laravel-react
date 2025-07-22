@@ -26,7 +26,7 @@ import AuthContext from "../../contexts/AuthContext.jsx";
 
 
                 const token = json.token;
-
+console.log(`Token: ${token}`)
                 setToken(token);
 
 

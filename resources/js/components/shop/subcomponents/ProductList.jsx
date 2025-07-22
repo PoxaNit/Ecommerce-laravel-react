@@ -4,24 +4,38 @@ import ProductCard from "./cards/ProductCard.jsx";
 
  function ProductList () {
 
-     const { products } = React.useContext(ShopContext);
-
-
+     const { products, viewProduct } = React.useContext(ShopContext);
 
      return (
-       <div>
 
          <ul>
 
-           {
-            Object.entries(products).forEach(([key, value]) => {
-                <ProductCard product={} //...
-            })
+           { // Render all products
+
+             Object.entries(products).map(([key, value]) => {
+
+                 return (
+                     <li>
+
+                         <ProductCard
+                            name={value.name}
+                            short_description={value.short_description}
+                            price={value.price}
+                            imageUrl={value.image_path}
+                            stock={value.stock}
+                            viewDetails={() => viewProduct(value)}
+                         />
+
+                     </li>
+
+                 );
+
+             })
+
            }
 
          </ul>
 
-       </div>
      );
 
  }

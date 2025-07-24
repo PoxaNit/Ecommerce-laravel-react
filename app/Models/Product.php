@@ -21,6 +21,11 @@ class Product extends Model
         'width',
         'length',
         'sku',
+        'categories'
+    ];
+
+    protected $casts = [
+        'categories' => 'array',
     ];
 
 }

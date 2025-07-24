@@ -13,7 +13,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"black-retractable-sofa"
+    "sku":"black-retractable-sofa",
+    "categories":{
+      "categorie":"furniture",
+      "subcategory":"couches"
+    }
   },
   "brown_comfy_retractable_sofa":{
     "name":"brown comfy retractable sofa",
@@ -29,7 +33,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"brown-comfy-retractable-sofa"
+    "sku":"brown-comfy-retractable-sofa",
+    "categories":{
+      "categorie":"furniture",
+      "subcategory":"couches"
+    }
   },
   "gray_3_seater_retractable_sofa.jpg":{
     "name":"gray 3 seater retractable sofa",
@@ -45,7 +53,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"gray-3-seater-retractable-sofa"
+    "sku":"gray-3-seater-retractable-sofa",
+    "categories":{
+      "categorie":"furniture",
+      "subcategory":"couches"
+    }
   },
   "gray_6_seater_sofa":{
     "name":"gray 6 seater sofa",
@@ -61,7 +73,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"gray-6-seater-sofa"
+    "sku":"gray-6-seater-sofa",
+    "categories":{
+      "categorie":"furniture",
+      "subcategory":"couches"
+    }
   },
   "white_comfy_sofa":{
     "name":"white comfy sofa",
@@ -77,6 +93,10 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"white-comfy-sofa"
+    "sku":"white-comfy-sofa",
+    "categories":{
+      "categorie":"furniture",
+      "subcategory":"couches"
+    }
   }
 }

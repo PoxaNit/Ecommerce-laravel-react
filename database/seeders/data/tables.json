@@ -13,7 +13,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"brown-6-places-dinner-table"
+    "sku":"brown-6-places-dinner-table",
+    "categories":{
+      "categorie":"furniture",
+      "subcategory":"tables"
+    }
   },
   "gray_dinner_table":{
     "name":"Gray dinner table",
@@ -29,7 +33,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"gray-dinner-table"
+    "sku":"gray-dinner-table",
+    "categories":{
+      "categorie":"furniture",
+      "subcategory":"tables"
+    }
   },
   "home_office_table":{
     "name":"Home office table",
@@ -45,7 +53,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"home-office-tables"
+    "sku":"home-office-tables",
+    "categories":{
+      "categorie":"furniture",
+      "subcategory":"tables"
+    }
   },
   "simple_dinner_table":{
     "name":"Simple dinner table",
@@ -61,7 +73,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"simple-dinner-table"
+    "sku":"simple-dinner-table",
+    "categories":{
+      "categorie":"furniture",
+      "subcategory":"tables"
+    }
   },
   "white_and_brown_dinner_table":{
     "name":"White and brown dinner table",
@@ -77,6 +93,10 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"white-and-brown-dinner-table"
+    "sku":"white-and-brown-dinner-table",
+    "categories":{
+      "categorie":"furniture",
+      "subcategory":"tables"
+    }
   }
 }

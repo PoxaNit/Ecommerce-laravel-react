@@ -13,7 +13,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"black-microwave"
+    "sku":"black-microwave",
+    "categories":{
+      "categorie":"appliances",
+      "subcategory":"microwaves"
+    }
   },
   "pink_microwave":{
     "name":"Pink microwave",
@@ -29,7 +33,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"pink-microwave"
+    "sku":"pink-microwave",
+    "categories":{
+      "categorie":"appliances",
+      "subcategory":"microwaves"
+    }
   },
   "blue_microwave":{
     "name":"Blue microwave",
@@ -45,7 +53,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"blue-microwave"
+    "sku":"blue-microwave",
+    "categories":{
+      "categorie":"appliances",
+      "subcategory":"microwaves"
+    }
   },
   "yellow_microwave":{
     "name":"Yellow microwave",
@@ -61,7 +73,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"yellow-microwave"
+    "sku":"yellow-microwave",
+    "categories":{
+      "categorie":"appliances",
+      "subcategory":"microwaves"
+    }
   },
   "gray_microwave":{
     "name":"Gray microwave",
@@ -77,6 +93,10 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"gray-microwaves"
+    "sku":"gray-microwaves",
+    "categories":{
+      "categorie":"appliances",
+      "subcategory":"microwaves"
+    }
   }
 }

@@ -4,7 +4,10 @@ import ProductCard from "./cards/ProductCard.jsx";
 
  function ProductList () {
 
-     const { products, viewProduct } = React.useContext(ShopContext);
+     const {
+             productListOnDisplay,
+             viewProduct
+           } = React.useContext(ShopContext);
 
      return (
 
@@ -12,7 +15,7 @@ import ProductCard from "./cards/ProductCard.jsx";
 
            { // Render all products
 
-             Object.entries(products).map(([key, value]) => {
+             Object.entries(productListOnDisplay).map(([key, value]) => {
 
                  return (
                      <li>

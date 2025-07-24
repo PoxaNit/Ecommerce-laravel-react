@@ -13,7 +13,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"black-blender"
+    "sku":"black-blender",
+    "categories":{
+      "categorie":"appliances",
+      "subcategory":"blenders"
+    }
   },
   "red_blender":{
     "name":"Red blender",
@@ -29,7 +33,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"red-blender"
+    "sku":"red-blender",
+    "categories":{
+      "categorie":"appliances",
+      "subcategory":"blenders"
+    }
   },
   "yellow_blender":{
     "name":"Yellow blender",
@@ -45,7 +53,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"yellow-blender"
+    "sku":"yellow-blender",
+    "categories":{
+      "categorie":"appliances",
+      "subcategory":"blenders"
+    }
   },
   "gray_blender":{
     "name":"Gray blender",
@@ -61,7 +73,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"gray-blender"
+    "sku":"gray-blender",
+    "categories":{
+      "categorie":"appliances",
+      "subcategory":"blenders"
+    }
   },
   "white_blender":{
     "name":"White blender",
@@ -77,6 +93,10 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"white-blender"
+    "sku":"white-blender",
+    "categories":{
+      "categorie":"appliances",
+      "subcategory":"blenders"
+    }
   }
 }

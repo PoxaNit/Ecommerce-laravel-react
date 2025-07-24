@@ -13,7 +13,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"black-kitchen-cabinet"
+    "sku":"black-kitchen-cabinet",
+    "categories":{
+      "categorie":"furniture",
+      "subcategory":"kitchen cabinets"
+    }
   },
   "brown_and_gray_kitchen_cabinet":{
     "name":"Brown and gray kitchen cabinet",
@@ -29,7 +33,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"brown-and-gray-kitchen-cabinet"
+    "sku":"brown-and-gray-kitchen-cabinet",
+    "categories":{
+      "categorie":"furniture",
+      "subcategory":"kitchen cabinets"
+    }
   },
   "compact_kitchen_cabinet":{
     "name":"Compact kitchen cabinet",
@@ -45,7 +53,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"compact-kitchen-cabinet"
+    "sku":"compact-kitchen-cabinet",
+    "categories":{
+      "categorie":"furniture",
+      "subcategory":"kitchen cabinets"
+    }
   },
   "large_green_kitchen_cabinet":{
     "name":"Large green kitchen cabinet",
@@ -61,7 +73,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"large-green-kitchen-cabinets"
+    "sku":"large-green-kitchen-cabinets",
+    "categories":{
+      "categorie":"furniture",
+      "subcategory":"kitchen cabinets"
+    }
   },
   "white_and_brown_compact_kitchen_cabinet":{
     "name":"white_and_brown_compact_kitchen_cabinet",
@@ -77,6 +93,10 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"white-and-brown-compact-kitchen-cabinet"
+    "sku":"white-and-brown-compact-kitchen-cabinet",
+    "categories":{
+      "categorie":"furniture",
+      "subcategory":"kitchen cabinets"
+    }
   }
 }

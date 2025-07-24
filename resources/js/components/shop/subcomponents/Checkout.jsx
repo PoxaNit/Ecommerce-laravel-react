@@ -55,13 +55,15 @@ import getProducts from "../../../functions/getProducts.jsx";
 
          const json = await response.json();
 
-         setMessage(json.message);
-
          setCart([]);
+
+         localStorage.removeItem("products");
 
          const products = await getProducts(token);
 
          setProducts(products);
+
+         setMessage("Purchase made!");
 
      }, [cart]);
 

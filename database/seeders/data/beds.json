@@ -13,7 +13,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"black-queen-size-bed"
+    "sku":"black-queen-size-bed",
+    "categories":{
+      "categorie":"furniture",
+      "subcategory":"beds"
+    }
   },
   "box_spring_bed":{
     "name":"Box spring bed",
@@ -29,7 +33,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"box-spring-bed"
+    "sku":"box-spring-bed",
+    "categories":{
+      "categorie":"furniture",
+      "subcategory":"beds"
+    }
   },
   "chest_box_spring_bed":{
     "name":"Chest box spring bed",
@@ -45,7 +53,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"chest-box-spring-bed"
+    "sku":"chest-box-spring-bed",
+    "categories":{
+      "categorie":"furniture",
+      "subcategory":"beds"
+    }
   },
   "chest_head_bed":{
     "name":"Chest head bed",
@@ -61,7 +73,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"chest-head-bed"
+    "sku":"chest-head-bed",
+    "categories":{
+      "categorie":"furniture",
+      "subcategory":"beds"
+    }
   },
   "queen_size_bed":{
     "name":"Queen-size bed",
@@ -77,6 +93,10 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"queen-size-bed"
+    "sku":"queen-size-bed",
+    "categories":{
+      "categorie":"furniture",
+      "subcategory":"beds"
+    }
   }
 }

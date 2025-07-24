@@ -28,6 +28,7 @@ return new class extends Migration
             $table->decimal("width", 8, 2)->nullable();
             $table->decimal("length", 8, 2)->nullable();
             $table->string("sku")->nullable();
+            $table->json("categories");
         });
     }
 

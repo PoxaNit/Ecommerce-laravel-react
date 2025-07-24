@@ -13,7 +13,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"55-inch-television"
+    "sku":"55-inch-television",
+    "categories":{
+      "categorie":"eletronics",
+      "subcategory":"televisions"
+    }
   },
   "50_inch_television":{
     "name":"50 inch television",
@@ -29,7 +33,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"50-inch-television"
+    "sku":"50-inch-television",
+    "categories":{
+      "categorie":"eletronics",
+      "subcategory":"televisions"
+    }
   },
   "black_55_inch_television":{
     "name":"Black 55 inch television",
@@ -45,7 +53,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"black-55-inch-television"
+    "sku":"black-55-inch-television",
+    "categories":{
+      "categorie":"eletronics",
+      "subcategory":"televisions"
+    }
   },
   "high_definition_television":{
     "name":"High definition television",
@@ -61,7 +73,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"high-definition-television"
+    "sku":"high-definition-television",
+    "categories":{
+      "categorie":"eletronics",
+      "subcategory":"televisions"
+    }
   },
   "white_television":{
     "name":"White television",
@@ -77,6 +93,10 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"white-flip_phone"
+    "sku":"white-flip_phone",
+    "categories":{
+      "categorie":"eletronics",
+      "subcategory":"televisions"
+    }
   }
 }

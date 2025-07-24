@@ -13,7 +13,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"black-and-transparent-window-refrigerator"
+    "sku":"black-and-transparent-window-refrigerator",
+    "categories":{
+      "categorie":"appliances",
+      "subcategory":"refrigerators"
+    }
   },
   "black_refrigerator":{
     "name":"Black refrigerator",
@@ -29,7 +33,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"black-refrigerator"
+    "sku":"black-refrigerator",
+    "categories":{
+      "categorie":"appliances",
+      "subcategory":"refrigerators"
+    }
   },
   "gray_2_doors_refrigerator":{
     "name":"Gray 2 doors refrigerator",
@@ -45,7 +53,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"gray-2-doors-refrigerator"
+    "sku":"gray-2-doors-refrigerator",
+    "categories":{
+      "categorie":"appliances",
+      "subcategory":"refrigerators"
+    }
   },
   "gray_simple_refrigerator":{
     "name":"Gray simple refrigerator",
@@ -61,7 +73,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"gray-simple-refrigerator"
+    "sku":"gray-simple-refrigerator",
+    "categories":{
+      "categorie":"appliances",
+      "subcategory":"refrigerators"
+    }
   },
   "white_simple_refrigerator":{
     "name":"White simple refrigerator",
@@ -77,6 +93,10 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"white-simple-refrigerator"
+    "sku":"white-simple-refrigerator",
+    "categories":{
+      "categorie":"appliances",
+      "subcategory":"refrigerators"
+    }
   }
 }

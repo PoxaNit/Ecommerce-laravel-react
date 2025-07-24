@@ -32,6 +32,31 @@ import Checkout from "./subcomponents/Checkout.jsx";
 
      const { token, userId } = React.useContext(AuthContext);
 
+
+     // Allow the ProductDetais component to make conditional renderization depending on the parent component who called it
+     const [parentCallerProductDetails, setParentCallerProductDetails] = React.useState("Shop");
+
+
+
+     const [productListOnDisplay, setProductListOnDisplay] = React.useState({});
+
+   // Defines if the products list is filtered or not
+     const [productListFiltered, setProductListFiltered] = React.useState(false);
+
+
+
+
+     /* Depends on the 'productListFiltered' state.
+      * When if the product list is filtered, it must be verified if categoryFilter is not a empty string.
+      * If not, then catch the content in this to see which is the category that the user is searching.
+     */ const [categoryFilter, setCategoryFilter] = React.useState("");
+
+
+
+     // Depends on the productListFiltered, keeps the name of a product that the user has searched
+     const [nameFilter, setNameFilter] = React.useState("");
+
+
 localStorage.removeItem("cart");
      const storeProducts = React.useCallback(async () => {
 
@@ -68,9 +93,10 @@ localStorage.removeItem("cart");
      }, []);
 
 
+React.useEffect(() => {
+console.log(`products: ${JSON.stringify(products)}`)
 
-     // Allow the ProductDetais component to make conditional rendering depending on the parent component who called it
-     const [parentCallerProductDetails, setParentCallerProductDetails] = React.useState("Shop");
+}, [products]);
 
      const viewProduct = React.useCallback((cartItem, parentCaller) => {
 
@@ -81,6 +107,53 @@ localStorage.removeItem("cart");
          setShowProductDetails(true);
 
      }, []);
+
+
+
+
+
+
+
+   // Filter logic
+     React.useEffect(() => {
+
+         if (productListFiltered) {
+
+             if (!nameFilter && categoryFilter) {
+
+                 const productsFilteredByCategory = products.filter(product => product.name.endsWith(categoryFilter));
+
+                 setProductListOnDisplay(productsFilteredByCategory);
+
+             } else if (!categoryFilter && nameFilter) {
+
+                 const productsFilteredByName = products.filter(product => product.name.toLowerCase().includes(nameFilter.toLowerCase()));
+
+                 setProductListOnDisplay(productsFilteredByName);
+
+             } else if (nameFilter && categoryFilter) {
+
+                 const productsFilteredByCategory = products.filter(p => p.name.endsWith(categoryFilter));
+
+                 const productsFilteredByNameAfterCategoryFilter = productsFilteredByCategory.filter(p => p.name.includes(nameFilter));
+
+                 setProductListOnDisplay(productsFilteredByNameAfterCategoryFilter);
+
+             } else {
+
+                 setProductListOnDisplay(products);
+
+             }
+
+         } else {
+
+             setProductListOnDisplay(products);
+
+         }
+
+     }, [products, productListFiltered, categoryFilter, nameFilter]);
+
+
 
 
 
@@ -113,7 +186,7 @@ localStorage.removeItem("cart");
              setShowCheckout
            }}>
 
-             <Cart cartItems={cart} showCart={setShowCart} />;
+             <Cart cartItems={cart} showCart={setShowCart} />
 
            </ShopContext.Provider>
 
@@ -146,6 +219,21 @@ localStorage.removeItem("cart");
      }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
      return (
 
        <ShopContext.Provider value={{
@@ -162,7 +250,15 @@ localStorage.removeItem("cart");
          setShowOptions,
          showCheckout,
          setShowCheckout,
-         setParentCallerProductDetails
+         setParentCallerProductDetails,
+         productListOnDisplay,
+         setProductListOnDisplay,
+         productListFiltered,
+         setProductListFiltered,
+         categoryFilter,
+         setCategoryFilter,
+         nameFilter,
+         setNameFilter
        }}>
 
 

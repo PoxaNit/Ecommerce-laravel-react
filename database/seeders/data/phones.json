@@ -13,7 +13,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"black-4-cameras-phone"
+    "sku":"black-4-cameras-phone",
+    "categories":{
+      "categorie":"eletronics",
+      "subcategory":"phones"
+    }
   },
   "gray_5_cameras_phone":{
     "name":"Gray 5 cameras phone",
@@ -29,7 +33,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"gray-5-cameras-phone"
+    "sku":"gray-5-cameras-phone",
+    "categories":{
+      "categorie":"eletronics",
+      "subcategory":"phones"
+    }
   },
   "pink_phone":{
     "name":"Pink phone",
@@ -45,7 +53,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"pink-phone"
+    "sku":"pink-phone",
+    "categories":{
+      "categorie":"eletronics",
+      "subcategory":"phones"
+    }
   },
   "white_3_cameras_phone":{
     "name":"White 3 cameras phone",
@@ -61,7 +73,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"white-3-cameras-phone"
+    "sku":"white-3-cameras-phone",
+    "categories":{
+      "categorie":"eletronics",
+      "subcategory":"phones"
+    }
   },
   "white_flip_phone":{
     "name":"White flip phone",
@@ -77,6 +93,10 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"white-flip_phone"
+    "sku":"white-flip_phone",
+    "categories":{
+      "categorie":"eletronics",
+      "subcategory":"phones"
+    }
   }
 }

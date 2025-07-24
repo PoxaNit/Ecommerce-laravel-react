@@ -3,14 +3,38 @@ import ShopContext from "../../../contexts/ShopContext.jsx";
 
  function Top ({closeShop}) {
 
-     const { setShowOptions } = React.useContext(ShopContext);
+     const {
+             setNameFilter,
+             setProductListFiltered,
+             setShowOptions
+           } = React.useContext(ShopContext);
+
+     const inputText = React.useRef(null);
+
+     const applyNameFilter = React.useCallback(() => {
+
+         const text = inputText.current.value
+
+         if (text) {
+
+             setProductListFiltered(true);
+
+         } else {
+
+             setProductListFiltered(false);
+
+         }
+
+         setNameFilter(text);
+ 
+     }, [inputText.current]);
 
      return (
        <div>
 
          <button onClick={() => closeShop()}>Close</button>
 
-         <input type="text" placeholder="Search product" />
+         <input ref={inputText} onInput={() => {applyNameFilter(); console.log(`texto: ${inputText.current.value}`)}} type="text" placeholder="Search product" />
 
          <button onClick={() => setShowOptions(true)}>Options</button>
 

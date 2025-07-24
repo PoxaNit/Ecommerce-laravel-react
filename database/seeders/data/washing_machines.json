@@ -13,7 +13,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"black-digital-display-washing-machine"
+    "sku":"black-digital-display-washing-machine",
+    "categories":{
+      "categorie":"appliances",
+      "subcategory":"washing machines"
+    }
   },
   "black_washing_machine":{
     "name":"Black washing machine",
@@ -29,7 +33,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"black-washing-machine"
+    "sku":"black-washing-machine",
+    "categories":{
+      "categorie":"appliances",
+      "subcategory":"washing machines"
+    }
   },
   "gray_front_load_washing_machine":{
     "name":"Gray front-load washing machine",
@@ -45,7 +53,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"gray-front-load-washing-machine"
+    "sku":"gray-front-load-washing-machine",
+    "categories":{
+      "categorie":"appliances",
+      "subcategory":"washing machines"
+    }
   },
   "white_front_load_washing_machine":{
     "name":"White front-load washing machine",
@@ -61,7 +73,11 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"white-front-load-washing-machine"
+    "sku":"white-front-load-washing-machine",
+    "categories":{
+      "categorie":"appliances",
+      "subcategory":"washing machines"
+    }
   },
   "white_top_load_washing_machine":{
     "name":"White top-load washing machine",
@@ -77,6 +93,10 @@
     "height":0,
     "width":0,
     "length":0,
-    "sku":"white-top-load-washing-machine"
+    "sku":"white-top-load-washing-machine",
+    "categories":{
+      "categorie":"appliances",
+      "subcategory":"washing machines"
+    }
   }
 }

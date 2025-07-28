@@ -15,7 +15,7 @@
     "length":0,
     "sku":"black-blender",
     "categories":{
-      "categorie":"appliances",
+      "category":"appliances",
       "subcategory":"blenders"
     }
   },
@@ -35,7 +35,7 @@
     "length":0,
     "sku":"red-blender",
     "categories":{
-      "categorie":"appliances",
+      "category":"appliances",
       "subcategory":"blenders"
     }
   },
@@ -55,7 +55,7 @@
     "length":0,
     "sku":"yellow-blender",
     "categories":{
-      "categorie":"appliances",
+      "category":"appliances",
       "subcategory":"blenders"
     }
   },
@@ -75,7 +75,7 @@
     "length":0,
     "sku":"gray-blender",
     "categories":{
-      "categorie":"appliances",
+      "category":"appliances",
       "subcategory":"blenders"
     }
   },
@@ -95,7 +95,7 @@
     "length":0,
     "sku":"white-blender",
     "categories":{
-      "categorie":"appliances",
+      "category":"appliances",
       "subcategory":"blenders"
     }
   }

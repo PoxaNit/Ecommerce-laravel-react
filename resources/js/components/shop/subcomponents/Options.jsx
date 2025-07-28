@@ -1,10 +1,14 @@
 import React from "react";
+import ShopContext from "../../../contexts/ShopContext.jsx";
 
  function Options ({
    showCart = () => {},
    showOptions = () => {},
-   showCheckout = () => {}
+   showCheckout = () => {},
+   showCategoryFilter = () => {}
  }) {
+
+     const { setNameFilter } = React.useContext(ShopContext);
 
      const displayCart = React.useCallback(() => {
 
@@ -26,9 +30,10 @@ import React from "react";
      return (
        <div>
 
-         <button onClick={() => showOptions(false)}>Close</button>
+         <button onClick={() => {setNameFilter(""); showOptions(false)}}>Close</button> {/*Note that the "setNameFilter("") is to update the useEffect of the filter logic in the Shop component, avoiding wrong state persistence*/}
          <button onClick={() => displayCart()}>View cart</button>
          <button onClick={() => displayCheckout()}>Checkout</button>
+         <button onClick={() => {showOptions(false); showCategoryFilter(true)}}>Filter by category</button>
 
        </div>
      );

@@ -6,7 +6,10 @@ import ShopContext from "../../../contexts/ShopContext.jsx";
      const {
              setNameFilter,
              setProductListFiltered,
-             setShowOptions
+             setShowOptions,
+             categoryFilter,
+             subCategoryFilter,
+             setCategoryFilter
            } = React.useContext(ShopContext);
 
      const inputText = React.useRef(null);
@@ -21,7 +24,7 @@ import ShopContext from "../../../contexts/ShopContext.jsx";
 
          } else {
 
-             setProductListFiltered(false);
+             if (!subCategoryFilter && !categoryFilter) setProductListFiltered(false);
 
          }
 

@@ -15,7 +15,7 @@
     "length":0,
     "sku":"black-microwave",
     "categories":{
-      "categorie":"appliances",
+      "category":"appliances",
       "subcategory":"microwaves"
     }
   },
@@ -35,7 +35,7 @@
     "length":0,
     "sku":"pink-microwave",
     "categories":{
-      "categorie":"appliances",
+      "category":"appliances",
       "subcategory":"microwaves"
     }
   },
@@ -55,7 +55,7 @@
     "length":0,
     "sku":"blue-microwave",
     "categories":{
-      "categorie":"appliances",
+      "category":"appliances",
       "subcategory":"microwaves"
     }
   },
@@ -75,7 +75,7 @@
     "length":0,
     "sku":"yellow-microwave",
     "categories":{
-      "categorie":"appliances",
+      "category":"appliances",
       "subcategory":"microwaves"
     }
   },
@@ -95,7 +95,7 @@
     "length":0,
     "sku":"gray-microwaves",
     "categories":{
-      "categorie":"appliances",
+      "category":"appliances",
       "subcategory":"microwaves"
     }
   }

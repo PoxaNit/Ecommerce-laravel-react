@@ -9,11 +9,17 @@ import Cart from "./subcomponents/Cart.jsx";
 import getCart from "../../functions/getCart.jsx";
 import Options from "./subcomponents/Options.jsx";
 import Checkout from "./subcomponents/Checkout.jsx";
+import ProductCategoryFilter from "./subcomponents/ProductCategoryFilter.jsx";
 
  function Shop ({closeShop = () => {}}) {
 
+     const { token, userId } = React.useContext(AuthContext);
+
      // Keep all products became from backend in this component and children
      const [products, setProducts] = React.useState({});
+
+     // Shows the ProductCategoryFilter component
+     const [showCategoryFilter, setShowCategoryFilter] = React.useState(false);
 
      const [showProductDetails, setShowProductDetails] = React.useState(false);
 
@@ -30,7 +36,6 @@ import Checkout from "./subcomponents/Checkout.jsx";
 
      const [showCheckout, setShowCheckout] = React.useState(false);
 
-     const { token, userId } = React.useContext(AuthContext);
 
 
      // Allow the ProductDetais component to make conditional renderization depending on the parent component who called it
@@ -51,7 +56,7 @@ import Checkout from "./subcomponents/Checkout.jsx";
       * If not, then catch the content in this to see which is the category that the user is searching.
      */ const [categoryFilter, setCategoryFilter] = React.useState("");
 
-
+     const [subCategoryFilter, setSubCategoryFilter] = React.useState("");
 
      // Depends on the productListFiltered, keeps the name of a product that the user has searched
      const [nameFilter, setNameFilter] = React.useState("");
@@ -93,11 +98,6 @@ localStorage.removeItem("cart");
      }, []);
 
 
-React.useEffect(() => {
-console.log(`products: ${JSON.stringify(products)}`)
-
-}, [products]);
-
      const viewProduct = React.useCallback((cartItem, parentCaller) => {
 
          setProductInDetails(cartItem);
@@ -116,28 +116,44 @@ console.log(`products: ${JSON.stringify(products)}`)
 
    // Filter logic
      React.useEffect(() => {
+console.log("useEffect executado!")
+   // Note that if categoryFilter is active it's because the user filtered all products of some primary category
 
          if (productListFiltered) {
-
+console.log("dentro de productListFilteted")
              if (!nameFilter && categoryFilter) {
-
-                 const productsFilteredByCategory = products.filter(product => product.name.endsWith(categoryFilter));
+console.log("só categoryFilter")
+                 const productsFilteredByCategory = products.filter(product => product.categories.category === categoryFilter);
 
                  setProductListOnDisplay(productsFilteredByCategory);
 
-             } else if (!categoryFilter && nameFilter) {
-
+             } else if (!subCategoryFilter && !categoryFilter && nameFilter) {
+console.log("só nameFilter")
                  const productsFilteredByName = products.filter(product => product.name.toLowerCase().includes(nameFilter.toLowerCase()));
 
                  setProductListOnDisplay(productsFilteredByName);
 
-             } else if (nameFilter && categoryFilter) {
+             } else if (!subCategoryFilter && nameFilter && categoryFilter) {
+console.log("só categoryFilter e nameFilter")
+                 const productsFilteredByCategory = productListOnDisplay.filter(p => p.categories.category === categoryFilter);
 
-                 const productsFilteredByCategory = products.filter(p => p.name.endsWith(categoryFilter));
-
-                 const productsFilteredByNameAfterCategoryFilter = productsFilteredByCategory.filter(p => p.name.includes(nameFilter));
+                 const productsFilteredByNameAfterCategoryFilter = productsFilteredByCategory.filter(p => p.name.toLowerCase().includes(nameFilter.toLowerCase()));
 
                  setProductListOnDisplay(productsFilteredByNameAfterCategoryFilter);
+
+             } else if (!categoryFilter && subCategoryFilter && !nameFilter) {
+console.log("só subCategoryFilter")
+                 const productsFilteredBySubCategory = products.filter(p => p.categories.subcategory === subCategoryFilter);
+
+                 setProductListOnDisplay(productsFilteredBySubCategory);
+
+             } else if (!categoryFilter && subCategoryFilter && nameFilter) {
+console.log("só subCategoryFilter e nameFilter")
+                 const productsFilteredBySubCategory = productListOnDisplay.filter(p => p.name.toLowerCase().includes(nameFilter.toLowerCase()));
+
+                 const filteredByName = productsFilteredBySubCategory.filter(p => p.name.toLowerCase().includes(nameFilter.toLowerCase()));
+
+                 setProductListOnDisplay(filteredByName);
 
              } else {
 
@@ -151,7 +167,7 @@ console.log(`products: ${JSON.stringify(products)}`)
 
          }
 
-     }, [products, productListFiltered, categoryFilter, nameFilter]);
+     }, [products, productListFiltered, categoryFilter, nameFilter, subCategoryFilter]);
 
 
 
@@ -194,11 +210,19 @@ console.log(`products: ${JSON.stringify(products)}`)
 
      } else if (showOptions) {
 
-         return <Options
+         return (
+           <ShopContext.Provider value={{
+             setNameFilter
+           }}>
+
+             <Options
                   showOptions={setShowOptions}
                   showCart={setShowCart}
                   showCheckout={setShowCheckout}
-                />;
+                  showCategoryFilter={setShowCategoryFilter}
+                />
+
+           </ShopContext.Provider>);
 
      } else if (showCheckout) {
 
@@ -212,6 +236,22 @@ console.log(`products: ${JSON.stringify(products)}`)
            }}>
 
              <Checkout />
+
+           </ShopContext.Provider>
+         );
+
+     } else if (showCategoryFilter) {
+
+         return (
+           <ShopContext.Provider value={{
+             products,
+             setProductListOnDisplay,
+             setCategoryFilter,
+             setSubCategoryFilter,
+             setProductListFiltered
+           }}>
+
+             <ProductCategoryFilter showThisComponent={setShowCategoryFilter} />
 
            </ShopContext.Provider>
          );
@@ -258,7 +298,8 @@ console.log(`products: ${JSON.stringify(products)}`)
          categoryFilter,
          setCategoryFilter,
          nameFilter,
-         setNameFilter
+         setNameFilter,
+         subCategoryFilter
        }}>
 
 

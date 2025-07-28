@@ -15,7 +15,7 @@
     "length":0,
     "sku":"brown-6-places-dinner-table",
     "categories":{
-      "categorie":"furniture",
+      "category":"furniture",
       "subcategory":"tables"
     }
   },
@@ -35,7 +35,7 @@
     "length":0,
     "sku":"gray-dinner-table",
     "categories":{
-      "categorie":"furniture",
+      "category":"furniture",
       "subcategory":"tables"
     }
   },
@@ -55,7 +55,7 @@
     "length":0,
     "sku":"home-office-tables",
     "categories":{
-      "categorie":"furniture",
+      "category":"furniture",
       "subcategory":"tables"
     }
   },
@@ -75,7 +75,7 @@
     "length":0,
     "sku":"simple-dinner-table",
     "categories":{
-      "categorie":"furniture",
+      "category":"furniture",
       "subcategory":"tables"
     }
   },
@@ -95,7 +95,7 @@
     "length":0,
     "sku":"white-and-brown-dinner-table",
     "categories":{
-      "categorie":"furniture",
+      "category":"furniture",
       "subcategory":"tables"
     }
   }

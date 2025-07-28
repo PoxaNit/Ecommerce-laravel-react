@@ -15,7 +15,7 @@
     "length":0,
     "sku":"black-retractable-sofa",
     "categories":{
-      "categorie":"furniture",
+      "category":"furniture",
       "subcategory":"couches"
     }
   },
@@ -35,7 +35,7 @@
     "length":0,
     "sku":"brown-comfy-retractable-sofa",
     "categories":{
-      "categorie":"furniture",
+      "category":"furniture",
       "subcategory":"couches"
     }
   },
@@ -55,7 +55,7 @@
     "length":0,
     "sku":"gray-3-seater-retractable-sofa",
     "categories":{
-      "categorie":"furniture",
+      "category":"furniture",
       "subcategory":"couches"
     }
   },
@@ -75,7 +75,7 @@
     "length":0,
     "sku":"gray-6-seater-sofa",
     "categories":{
-      "categorie":"furniture",
+      "category":"furniture",
       "subcategory":"couches"
     }
   },
@@ -95,7 +95,7 @@
     "length":0,
     "sku":"white-comfy-sofa",
     "categories":{
-      "categorie":"furniture",
+      "category":"furniture",
       "subcategory":"couches"
     }
   }

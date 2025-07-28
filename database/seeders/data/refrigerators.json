@@ -15,7 +15,7 @@
     "length":0,
     "sku":"black-and-transparent-window-refrigerator",
     "categories":{
-      "categorie":"appliances",
+      "category":"appliances",
       "subcategory":"refrigerators"
     }
   },
@@ -35,7 +35,7 @@
     "length":0,
     "sku":"black-refrigerator",
     "categories":{
-      "categorie":"appliances",
+      "category":"appliances",
       "subcategory":"refrigerators"
     }
   },
@@ -55,7 +55,7 @@
     "length":0,
     "sku":"gray-2-doors-refrigerator",
     "categories":{
-      "categorie":"appliances",
+      "category":"appliances",
       "subcategory":"refrigerators"
     }
   },
@@ -75,7 +75,7 @@
     "length":0,
     "sku":"gray-simple-refrigerator",
     "categories":{
-      "categorie":"appliances",
+      "category":"appliances",
       "subcategory":"refrigerators"
     }
   },
@@ -95,7 +95,7 @@
     "length":0,
     "sku":"white-simple-refrigerator",
     "categories":{
-      "categorie":"appliances",
+      "category":"appliances",
       "subcategory":"refrigerators"
     }
   }

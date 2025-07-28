@@ -15,7 +15,7 @@
     "length":0,
     "sku":"black-4-cameras-phone",
     "categories":{
-      "categorie":"eletronics",
+      "category":"eletronics",
       "subcategory":"phones"
     }
   },
@@ -35,7 +35,7 @@
     "length":0,
     "sku":"gray-5-cameras-phone",
     "categories":{
-      "categorie":"eletronics",
+      "category":"eletronics",
       "subcategory":"phones"
     }
   },
@@ -55,7 +55,7 @@
     "length":0,
     "sku":"pink-phone",
     "categories":{
-      "categorie":"eletronics",
+      "category":"eletronics",
       "subcategory":"phones"
     }
   },
@@ -75,7 +75,7 @@
     "length":0,
     "sku":"white-3-cameras-phone",
     "categories":{
-      "categorie":"eletronics",
+      "category":"eletronics",
       "subcategory":"phones"
     }
   },
@@ -95,7 +95,7 @@
     "length":0,
     "sku":"white-flip_phone",
     "categories":{
-      "categorie":"eletronics",
+      "category":"eletronics",
       "subcategory":"phones"
     }
   }

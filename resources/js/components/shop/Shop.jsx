@@ -116,25 +116,25 @@ localStorage.removeItem("cart");
 
    // Filter logic
      React.useEffect(() => {
-console.log("useEffect executado!")
+
    // Note that if categoryFilter is active it's because the user filtered all products of some primary category
 
          if (productListFiltered) {
-console.log("dentro de productListFilteted")
+
              if (!nameFilter && categoryFilter) {
-console.log("só categoryFilter")
+
                  const productsFilteredByCategory = products.filter(product => product.categories.category === categoryFilter);
 
                  setProductListOnDisplay(productsFilteredByCategory);
 
              } else if (!subCategoryFilter && !categoryFilter && nameFilter) {
-console.log("só nameFilter")
+
                  const productsFilteredByName = products.filter(product => product.name.toLowerCase().includes(nameFilter.toLowerCase()));
 
                  setProductListOnDisplay(productsFilteredByName);
 
              } else if (!subCategoryFilter && nameFilter && categoryFilter) {
-console.log("só categoryFilter e nameFilter")
+
                  const productsFilteredByCategory = productListOnDisplay.filter(p => p.categories.category === categoryFilter);
 
                  const productsFilteredByNameAfterCategoryFilter = productsFilteredByCategory.filter(p => p.name.toLowerCase().includes(nameFilter.toLowerCase()));
@@ -142,13 +142,13 @@ console.log("só categoryFilter e nameFilter")
                  setProductListOnDisplay(productsFilteredByNameAfterCategoryFilter);
 
              } else if (!categoryFilter && subCategoryFilter && !nameFilter) {
-console.log("só subCategoryFilter")
+
                  const productsFilteredBySubCategory = products.filter(p => p.categories.subcategory === subCategoryFilter);
 
                  setProductListOnDisplay(productsFilteredBySubCategory);
 
              } else if (!categoryFilter && subCategoryFilter && nameFilter) {
-console.log("só subCategoryFilter e nameFilter")
+
                  const productsFilteredBySubCategory = productListOnDisplay.filter(p => p.name.toLowerCase().includes(nameFilter.toLowerCase()));
 
                  const filteredByName = productsFilteredBySubCategory.filter(p => p.name.toLowerCase().includes(nameFilter.toLowerCase()));

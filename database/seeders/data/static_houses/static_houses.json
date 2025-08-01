@@ -1,0 +1,9 @@
+[
+ {
+  "name":"Wooden hut",
+  "description":"A small wooden hut at the swamp",
+  "cost":"0.00",
+  "capacity":"40.5",
+  "image_path":"images/static_houses/Wooden_hut.jpg"
+ }
+]

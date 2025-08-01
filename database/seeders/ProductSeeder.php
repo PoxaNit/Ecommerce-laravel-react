@@ -14,7 +14,7 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
 
-        foreach (glob(database_path("seeders/data") . "/" . "*.json") as $file):
+        foreach (glob(database_path("seeders/data/products") . "/" . "*.json") as $file):
 
             $json = json_decode(file_get_contents($file), true);
 

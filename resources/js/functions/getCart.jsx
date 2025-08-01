@@ -1,6 +1,6 @@
 
  async function getCart (token, user_id) {
-console.log("executando getCart...")
+
      const cartFromLocalStorage = localStorage.getItem("cart");
 
      if (cartFromLocalStorage) {

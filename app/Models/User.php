@@ -53,4 +53,10 @@ class User extends Authenticatable
 
     }
 
+    protected function houses () {
+
+        return $this->hasMany(User_house::class);
+
+    }
+
 }

@@ -25,7 +25,6 @@ import getCart from "./getCart.jsx";
 
          localStorage.setItem("cart", JSON.stringify(cart));
 
-console.log(`cart: ${JSON.stringify(cart)}`)
          return cart;
 
      }

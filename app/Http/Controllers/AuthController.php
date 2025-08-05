@@ -43,6 +43,8 @@ class AuthController extends Controller
         $token = $user->createToken("api-token")
                       ->plainTextToken;
 
+        $user->wallet; // Loads the wallet fields
+
         return response()->json([
           "message" => "Logged sucessful!",
           "success" => true,

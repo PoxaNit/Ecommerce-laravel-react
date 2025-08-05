@@ -8,9 +8,10 @@ class User_house extends Model
 {
     protected $fillable = [
       "user_id",
-      "house_product_id",
       "static_house_id",
-      "is_active"
+      "is_active",
+      "occupied_space",
+      "available_space"
     ];
 
     protected function user () {
@@ -27,7 +28,7 @@ class User_house extends Model
 
     protected function static_house () {
 
-        return $this->belongTo(Static_house::class);
+        return $this->belongsTo(Static_house::class);
 
     }
 

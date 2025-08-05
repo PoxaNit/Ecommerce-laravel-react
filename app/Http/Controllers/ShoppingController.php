@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Cart_item;
+use App\Models\House_product;
+use App\Models\User_house;
+use App\Models\User_wallet;
 
 class ShoppingController extends Controller
 {
@@ -114,7 +117,17 @@ class ShoppingController extends Controller
 
     public function checkout ($user_id) {
 
-        $user = User::findOrFail($user_id);
+        $user = User::find($user_id);
+
+        if (! $user):
+
+            return response()->json([
+              "message" => "user with id " . $user_id . " not found",
+              "success" => false,
+              "data" => null
+            ], 400);
+
+        endif;
 
         $cart = $user->cart;
 
@@ -161,6 +174,70 @@ class ShoppingController extends Controller
 
 
 
+
+
+        $wallet = $user->wallet;
+
+        $totalCost = 0.00;
+
+        foreach ($cart_items as $item):
+
+            $product = Product::find($item->product_id);
+
+            $totalCost = bcadd($totalCost, $product->price * $item->quantity, 2);
+
+        endforeach;
+
+
+        if ($wallet->balance < $totalCost):
+
+            return response()->json([
+              "message" => "Insufficient balance",
+              "success" => false,
+              "data" => null
+            ], 400);
+
+        endif;
+
+
+        $house = User_house::where("user_id", $user->id)
+                           ->where("is_active", true)
+                           ->first();
+
+        if (! $house) {
+
+            return response()->json([
+              "message" => "No active house found!",
+              "success" => false,
+              "data" => null
+            ], 422);
+
+        }
+
+        $totalVolume = 0.00;
+
+
+        foreach ($cart_items as $item):
+
+            $product = $item->product;
+
+            $totalVolume = bcadd($totalVolume, $product->volume() * $item->quantity, 2);
+
+        endforeach;
+
+
+        if ($totalVolume > $house->available_space):
+
+            return response()->json([
+              "message" => "Insufficient space in the house!",
+              "success" => false,
+              "data" => null
+            ], 409);
+
+        endif;
+
+
+     // Decreasing product stock and creating records on house_products table
         foreach ($cart_items as $item):
 
             $product = $item->product;
@@ -169,14 +246,55 @@ class ShoppingController extends Controller
 
             $product->save();
 
+            if (
+                House_product::where("product_id", $product->id)
+                             ->where("user_house_id", $house->id)
+                             ->doesntExist()
+               ):
+
+                House_product::create([
+                  "product_id" => $product->id,
+                  "user_house_id" => $house->id,
+                  "quantity" => $item->quantity
+                ]);
+
+            else:
+
+                $house_product = House_product::where("product_id", $product->id)
+                                              ->where("user_house_id", $house->id)
+                                              ->first();
+
+                $house_product->quantity += $item->quantity;
+
+                $house_product->save();
+
+            endif;
+
           // Taking off the items from the cart...
             $item->delete();
 
         endforeach;
 
+        $house->occupied_space += $totalVolume;
+
+        $house->available_space -= $totalVolume;
+
+        $house->save();
+
+        $wallet->balance = bcsub($wallet->balance, $totalCost, 2);
+
+        $wallet->save();
+
+
+        $data = [
+          "total_cost" => $totalCost,
+          "total_products_volume" => $totalVolume,
+          "house_id" => $house->id
+        ];
+
         return response()->json([
           "message" => "purchase made!",
-          "data" => null,
+          "data" => $data,
           "success" => true
         ], 200);
 

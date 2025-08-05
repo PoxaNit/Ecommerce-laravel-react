@@ -50,7 +50,7 @@ class CartController extends Controller
         if (! isset($cart_items[0])):
 
             return response()->json([
-              "message" => "There is no items in the cart!",
+              "message" => "There are no items in the cart!",
               "success" => true,
               "data" => null
             ], 200);

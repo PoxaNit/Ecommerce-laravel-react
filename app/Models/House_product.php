@@ -20,7 +20,7 @@ class House_product extends Model
 
     protected function product () {
 
-        return $this->hasOne(Product::class);
+        return $this->belongsTo(Product::class);
 
     }
 

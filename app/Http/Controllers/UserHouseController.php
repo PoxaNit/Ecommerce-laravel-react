@@ -7,6 +7,7 @@ use App\Models\User_house;
 use App\Models\User;
 use App\Models\Static_house;
 use App\Models\House_product;
+use App\Models\User_wallet;
 
 class UserHouseController extends Controller
 {
@@ -14,12 +15,33 @@ class UserHouseController extends Controller
 
         $user = User::findOrFail($user_id);
 
-        $houses = $user->houses();
+        $houses = $user->houses;
+
+        $data = [];
+
+        foreach ($houses as $house):
+
+            $static_house = Static_house::find($house->static_house_id);
+
+            $subData = [
+              "name" => $static_house->name,
+              "description" => $static_house->description,
+              "cost" => $static_house->cost,
+              "capacity" => $static_house->capacity,
+              "image_path" => $static_house->image_path,
+              "occupied_space" => $house->occupied_space,
+              "available_space" => $house->available_space,
+              "is_active" => $house->is_active
+            ];
+
+            $data[] = $subData;
+
+        endforeach;
 
         return response()->json([
           "success" => true,
           "message" => "OK",
-          "data" => $houses
+          "data" => $data
         ], 200);
 
     }
@@ -28,11 +50,21 @@ class UserHouseController extends Controller
 
         $user = User::findOrFail($user_id);
 
-        $static_house = Static_house::findOrFail($static_house_id);
+        $static_house = Static_house::find($static_house_id);
 
-        foreach ($user->houses() as $house):
+        if (! $static_house):
 
-            if ($house->id === $static_house->id):
+            return response()->json([
+              "message" => "Static house with id $static_house_id not found",
+              "success" => false,
+              "data" => null
+            ], 404);
+
+        endif;
+
+        foreach ($user->houses as $house):
+
+            if ($house->static_house_id === $static_house->id):
 
                 return response()->json([
                   "message" => "User already have house with id '$static_house_id'",
@@ -47,7 +79,9 @@ class UserHouseController extends Controller
         $house = User_house::create([
           "user_id" => $user->id,
           "static_house_id" => $static_house->id,
-          "is_active" => false
+          "is_active" => false,
+          "occupied_space" => 0.00,
+          "available_space" => $static_house->capacity
         ]);
 
         return response()->json([
@@ -62,49 +96,211 @@ class UserHouseController extends Controller
 
         $user = User::findOrFail($user_id);
 
-        $house = User_house::findOrFail($static_house_id);
+        $house = User_house::find($static_house_id);
+
+        if (! $house):
+
+            return response()->json([
+              "message" => "Static house with id $static_house_id not found",
+              "success" => false,
+              "data" => null
+            ], 404);
+
+        endif;
+
+        $wallet = $user->wallet;
+
+        $products = $house->products;
+
+        $totalMoney = 0.00;
+
+        foreach ($products as $product):
+
+            $realProduct = $product->product;
+
+            $totalMoney = bcadd($totalMoney, ($realProduct->price / 2) * $product->quantity, 2);
+
+        endforeach;
+
+        $wallet->balance = bcadd($wallet->balance, $totalMoney, 2);
+
+        $wallet->save();
 
         $house->delete();
+
+        $data = [
+          "total_money_earned" => $totalMoney
+        ];
 
         return response()->json([
           "message" => "Deleted!",
           "success" => true,
-          "data" => null
+          "data" => $data
         ], 200);
 
     }
 
-    public function deleteProduct ($user_id, $house_id, $product_id) {
+    public function deleteProduct ($user_id, $house_id, $product_id, Request $request) {
+
+        $validated = $request->validate([
+          "quantity" => "numeric"
+        ]);
 
         $user = User::findOrFail($user_id);
 
-        $house = User_house::findOrFail($house_id);
+        $house = User_house::where("user_id", $user_id)
+                           ->where("static_house_id", $house_id)
+                           ->first();
 
-        House_product::where("user_house_id", $house->id)
-                     ->where("product_id", $product_id)
-                     ->delete();
+        if (! $house):
+
+            return response()->json([
+              "message" => "house with id $house_id not found",
+              "success" => false,
+              "data" => null
+            ], 400);
+
+        endif;
+
+        $product = House_product::where("product_id", $product_id)
+                                ->where("user_house_id", $house->id)
+                                ->first();
+
+        if (! $product):
+
+            return response()->json([
+              "message" => "product with id " . $product_id . " not found in user house with id " . $house->static_house_id,
+              "success" => false,
+              "data" => null
+            ], 400);
+
+        endif;
+
+        if ($validated["quantity"] > $product->quantity):
+
+            return response()->json([
+              "message" => "Quantity solicited is greater than product quantity in the house",
+              "success" => false,
+              "data" => null
+            ], 409);
+
+        endif;
+
+        $volume = $product->product->volume() * $validated["quantity"];
+
+        $house->occupied_space -= $volume;
+
+        $house->available_space += $volume;
+
+        $house->save();
+
+        $wallet = $user->wallet;
+
+        $moneyEarned = ($product->product->price / 2) * $validated["quantity"];
+
+        $wallet->balance = bcadd($wallet->balance, $moneyEarned, 2);
+
+        $wallet->save();
+
+        $product->delete();
+
+        $data = [
+          "total_money_earned" => $moneyEarned,
+          "house" => [
+            "available_space" => $house->available_space,
+            "capacity" => $house->static_house->capacity
+          ]
+        ];
 
         return response()->json([
           "message" => "Deleted!",
           "success" => true,
-          "data" => null
+          "data" => $data
         ], 200);
 
     }
 
     public function deleteAllProducts ($user_id, $house_id) {
 
-       $user = User::findOrFail($user_id);
+       $user = User::find($user_id);
 
-       $house = User_house::findOrFail($house_id);
+       if (! $user):
+
+           return response()->json([
+             "message" => "user with id $user_id not found",
+             "success" => false,
+             "data" => null
+           ], 400);
+
+       endif;
+
+       $house = User_house::where("user_id", $user_id)
+                          ->where("static_house_id", $house_id)
+                          ->first();
+
+       if (! $house):
+
+           return response()->json([
+             "message" => "user house with id $house_id not found",
+             "success" => false,
+             "data" => null
+           ], 400);
+
+       endif;
+
+       $wallet = $user->wallet;
+
+       $moneyEarned = 0.00;
+
+       $there_are_items = false; // Check if there is any item in house
+
+       foreach ($house->products as $product):
+
+           $there_are_items = true;
+
+           $realProduct = $product->product;
+
+           $volume = $realProduct->volume() * $product->quantity;
+
+           $house->occupied_space -= $volume;
+
+           $house->available_space += $volume;
+
+           $house->save();
+
+           $moneyEarned += ($realProduct->price / 2) * $product->quantity;
+
+       endforeach;
+
+       if (! $there_are_items):
+
+           return response()->json([
+             "message" => "there are no items in user house with id $house_id",
+             "success" => false,
+             "data" => null
+           ], 400);
+
+       endif;
 
        House_product::where("user_house_id", $house->id)
-                      ->delete();
+                    ->delete();
+
+       $wallet->balance = bcadd($wallet->balance, $moneyEarned, 2);
+
+       $wallet->save();
+
+       $data = [
+         "total_money_earned" => $moneyEarned,
+         "house" => [
+           "available_space" => $house->available_space,
+           "capacity" => $house->static_house->capacity
+         ]
+       ];
 
        return response()->json([
          "message" => "Deleted!",
          "success" => true,
-         "data" => null
+         "data" => $data
        ], 200);
 
     }

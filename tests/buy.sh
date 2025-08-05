@@ -6,4 +6,4 @@
       -H "Content-Type: application/json" \
       -H "Authorization: Bearer ${token}" \
       -d "{\"quantity\":10}" \
-      http://localhost:8000/api/users/1/cart/add-product/7
+      http://localhost:8000/api/users/1/cart/add-product/1

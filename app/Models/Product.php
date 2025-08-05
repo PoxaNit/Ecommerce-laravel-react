@@ -28,6 +28,12 @@ class Product extends Model
         'categories' => 'array',
     ];
 
+    public function volume () {
+
+        return $this->width * $this->height * $this->length;
+
+    }
+
 }
 
 

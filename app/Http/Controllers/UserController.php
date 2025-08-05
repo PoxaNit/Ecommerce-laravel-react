@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Cart;
+use App\Models\User_house;
+use App\Models\Static_house;
+use App\Models\User_wallet;
 
 class UserController extends Controller
 {
@@ -40,7 +43,23 @@ class UserController extends Controller
 
         $user = User::create($data);
 
+        User_wallet::create([
+          "user_id" => $user->id,
+          "balance" => 10000.00
+        ]);
+
         Cart::create(["user_id" => $user->id]);
+
+        User_house::create([
+          "static_house_id" => 1,
+          "user_id" => $user->id,
+          "is_active" => true,
+          "available_space" => Static_house::where("id", 1)->first()->capacity,
+          "occupied_space" => 0.00
+        ]);
+
+
+        $user->wallet; // Load the wallet field in the return data
 
         return response()->json([
           "message" => "Created!",

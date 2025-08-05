@@ -7,8 +7,10 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\ShoppingController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\WalletController;
+use App\Http\Controllers\HouseProductController;
+use App\Http\Controllers\UserHouseController;
 use App\Http\Middleware\AuthenticateWithToken;
-
 
 
 Route::post("login", [AuthController::class, "login"]);
@@ -50,5 +52,27 @@ Route::delete("users/{user_id}/cart", [CartController::class, "delete"]);
 Route::post("users/{user_id}/cart/add-product/{product_id}", [ShoppingController::class, "addToCart"]);
 Route::post("users/{user_id}/cart/remove-product/{product_id}", [ShoppingController::class, "removeFromCart"]);
 Route::get("users/{user_id}/checkout", [ShoppingController::class, "checkout"]);
+
+
+ // Inventory routes
+Route::get("users/{user_id}/inventory", [HouseProductController::class, "index"]);
+Route::get("users/{user_id}/inventory/houses/{house_id}", [HouseProductController::class, "show"]);
+Route::delete("users/{user_id}/inventory", [HouseProductController::class, "deleteAll"]);
+Route::delete("users/{user_id}/inventory/products/{product_id}", [HouseProductController::class, "deleteProduct"]);
+
+
+
+ // User house routes
+Route::get("users/{user_id}/houses", [UserHouseController::class, "index"]);
+Route::post("users/{user_id}/houses/static_houses/{static_house_id}", [UserHouseController::class, "store"]);
+Route::delete("users/{user_id}/houses/static_houses/{static_house_id}", [UserHouseController::class, "destroy"]);
+Route::patch("users/{user_id}/inventory/houses/{house_id}/products/{product_id}", [UserHouseController::class, "deleteProduct"]);
+Route::delete("users/{user_id}/inventory/houses/{house_id}", [UserHouseController::class, "deleteAllProducts"]);
+
+
+ // Wallet routes
+Route::get("users/{user_id}/wallet/balance", [WalletController::class, "showBalance"]);
+Route::post("users/{user_id}/wallet/balance", [WalletController::class, "increaseBalance"]);
+Route::patch("users/{user_id}/wallet/balance", [WalletController::class, "decreaseBalance"]);
 
 });

@@ -6,6 +6,8 @@ import React from "react";
 
      const form = React.useRef(null);
 
+     const [displayMessage, setDisplayMessage] = React.useState("");
+
      const createUser = React.useCallback(async () => {
 
          const formData = new FormData(form.current);
@@ -17,7 +19,9 @@ import React from "react";
 
          const json = await response.json();
 
-         console.log(`json: ${JSON.stringify(json)}`);
+         if (!json.success) {setDisplayMessage(json.message)}
+
+         else {setDisplayMessage("User created!")}
 
      }, []);
 
@@ -45,6 +49,8 @@ import React from "react";
            <input type="button" onClick={() => createUser()} value="Submit" />
 
          </form>
+
+         {displayMessage && <p>{displayMessage}</p>}
 
        </>
      );

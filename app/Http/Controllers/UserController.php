@@ -33,6 +33,19 @@ class UserController extends Controller
           "password" => "required|string|max:255"
         ]);
 
+        $user_test = User::where("email", $validated["email"])
+                         ->first();
+
+        if ($user_test):
+
+            return response()->json([
+              "message" => "User already exists!",
+              "success" => false,
+              "data" => null
+            ], 409);
+
+        endif;
+
         $hash = Hash::make($validated["password"]);
 
         $data = [

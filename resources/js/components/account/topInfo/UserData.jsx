@@ -3,7 +3,7 @@ import AuthContext from "../../../contexts/AuthContext.jsx";
 
  function UserData () {
 
-     const { userName, userEmail } = React.useContext(AuthContext);
+     const { userName, userEmail, userBalance } = React.useContext(AuthContext);
 
      return (
        <div>
@@ -15,6 +15,10 @@ import AuthContext from "../../../contexts/AuthContext.jsx";
             <strong>Email:</strong>
 
             <p>{userEmail}</p>
+
+            <strong>Balance:</strong>
+
+            <p>{userBalance}</p>
 
        </div>
      );

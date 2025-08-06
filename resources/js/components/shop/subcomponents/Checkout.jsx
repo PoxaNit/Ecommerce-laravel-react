@@ -6,9 +6,10 @@ import getProducts from "../../../functions/getProducts.jsx";
  function Checkout () {
 
      const [message, setMessage] = React.useState("");
+     const [message2, setMessage2] = React.useState("");
      const [purchaseButtonDisabled, setPurchaseButtonDisabled] = React.useState(false);
 
-     const { userId, token } = React.useContext(AuthContext);
+     const { setUserBalance, userId, token } = React.useContext(AuthContext);
 
      const { setProducts, setCart, cart, setShowCheckout, setShowCart } = React.useContext(ShopContext);
 
@@ -55,6 +56,14 @@ import getProducts from "../../../functions/getProducts.jsx";
 
          const json = await response.json();
 
+         if (!json.success) {
+
+             setMessage(json.message);
+
+             return null;
+
+         }
+
          setCart([]);
 
          localStorage.removeItem("products");
@@ -63,7 +72,11 @@ import getProducts from "../../../functions/getProducts.jsx";
 
          setProducts(products);
 
+         setUserBalance(json.data.user_balance);
+
          setMessage("Purchase made!");
+
+         setMessage2(`The items went to house with ID ${json.data.house_id}`);
 
      }, [cart]);
 
@@ -85,6 +98,8 @@ import getProducts from "../../../functions/getProducts.jsx";
          <button disabled={purchaseButtonDisabled} onClick={() => makePurchase()}>Make Purchase</button>
 
          <p>{message}</p>
+
+         <p>{message2}</p>
 
        </>
      );

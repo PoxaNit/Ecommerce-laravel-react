@@ -289,7 +289,8 @@ class ShoppingController extends Controller
         $data = [
           "total_cost" => $totalCost,
           "total_products_volume" => $totalVolume,
-          "house_id" => $house->id
+          "house_id" => $house->id,
+          "user_balance" => $wallet->balance
         ];
 
         return response()->json([

@@ -6,9 +6,11 @@ import AuthContext from "../../contexts/AuthContext.jsx";
    changeForm = () => {} // This change from this form to the register form.
  }) {
 
-        const { setUserEmail, setUserName, setToken, setAuthenticated, setUserId } = React.useContext(AuthContext);
+        const { setUserBalance, setUserEmail, setUserName, setToken, setAuthenticated, setUserId } = React.useContext(AuthContext);
 
         const form = React.useRef(null);
+
+        const [errorMessage, setErrorMessage] = React.useState("");
 
         const login = React.useCallback(async () => {
 
@@ -26,7 +28,7 @@ import AuthContext from "../../contexts/AuthContext.jsx";
 
 
                 const token = json.token;
-console.log(`Token: ${token}`)
+
                 setToken(token);
 
 
@@ -48,6 +50,10 @@ console.log(`Token: ${token}`)
                 setUserEmail(email);
 
 
+                const balance = json.data.wallet.balance;
+
+
+                setUserBalance(balance);
 
                 const user = json.data;
 
@@ -61,6 +67,8 @@ console.log(`Token: ${token}`)
                 setAuthenticated(true);
 
             } else {
+
+                setErrorMessage(json.message);
 
                 console.log(`json: ${JSON.stringify(json)}`)
 
@@ -89,6 +97,8 @@ console.log(`Token: ${token}`)
            <input type="button" onClick={() => login()} value="submit" />
 
          </form>
+
+         {errorMessage && <p>{errorMessage}</p>}
 
        </>
 

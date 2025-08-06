@@ -47,9 +47,9 @@ import AuthContext from "../../../contexts/AuthContext.jsx";
      return (
        <div>
 
-         {showConfirmation === "logout" && <Confirmation setShow={setShowConfirmation} func={logout}/>}
+         {showConfirmation === "logout" && <Confirmation setShow={setShowConfirmation} func={logout} title="Logout"/>}
 
-         {showConfirmation === "delete" && <Confirmation setShow={setShowConfirmation} func={deleteAccount}/>}
+         {showConfirmation === "delete" && <Confirmation setShow={setShowConfirmation} func={deleteAccount} title="Delete account"/>}
 
          <button onClick={() => setShowConfirmation("logout")}>logout</button>
          <button onClick={() => setShowConfirmation("delete")}>delete account</button>

@@ -11,6 +11,7 @@ import NotAuthenticated from "./components/notAuthenticated/NotAuthenticated.jsx
      const [userName, setUserName] = React.useState("");
      const [userEmail, setUserEmail] = React.useState("");
      const [userId, setUserId] = React.useState(0);
+     const [userBalance, setUserBalance] = React.useState(0.00);
 
 localStorage.removeItem("token");
 localStorage.removeItem("products");
@@ -59,7 +60,9 @@ localStorage.removeItem("products");
          userName,
          setUserName,
          userEmail,
-         setUserEmail
+         setUserEmail,
+         userBalance,
+         setUserBalance
        }}>
 
            {authenticated ? <Hub /> : <NotAuthenticated />}

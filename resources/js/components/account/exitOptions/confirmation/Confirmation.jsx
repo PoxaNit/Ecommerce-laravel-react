@@ -2,13 +2,14 @@ import React from "react";
 
  function FormConfirmation ({
    setShow = function(){},
-   func = function (){}
+   func = function (){},
+   title = ""
  }) {
 
      return (
        <div>
 
-         <h2>Logout</h2>
+         <h2>{title}</h2>
 
          <button onClick={() => setShow(false)}>cancel</button>
 

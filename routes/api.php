@@ -10,8 +10,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\WalletController;
 use App\Http\Controllers\HouseProductController;
 use App\Http\Controllers\UserHouseController;
+use App\Http\Controllers\StaticHousesController;
 use App\Http\Middleware\AuthenticateWithToken;
-
 
 Route::post("login", [AuthController::class, "login"]);
 
@@ -69,6 +69,9 @@ Route::delete("users/{user_id}/houses/static_houses/{static_house_id}", [UserHou
 Route::patch("users/{user_id}/inventory/houses/{house_id}/products/{product_id}", [UserHouseController::class, "deleteProduct"]);
 Route::delete("users/{user_id}/inventory/houses/{house_id}", [UserHouseController::class, "deleteAllProducts"]);
 
+
+ // Static house routes
+Route::get("users/{user_id}/houses/all", [StaticHousesController::class, "index"]);
 
  // Wallet routes
 Route::get("users/{user_id}/wallet/balance", [WalletController::class, "showBalance"]);

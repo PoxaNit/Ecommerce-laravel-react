@@ -2,12 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import Account from "../account/Account.jsx";
 import Shop from "../shop/Shop.jsx";
+import Houses from "../houses/Houses.jsx";
 
  function Hub () {
 
      const [showAccount, setShowAccount] = React.useState(false);
-
      const [showShop, setShowShop] = React.useState(false);
+     const [showHouses, setShowHouses] = React.useState(false);
+
 
      if (showAccount) {
 
@@ -17,6 +19,10 @@ import Shop from "../shop/Shop.jsx";
 
          return <Shop closeShop={() => setShowShop(false)} />;
 
+     } else if (showHouses) {
+
+         return <Houses showThisComponent={setShowHouses}/>;
+
      } else {
 
          return (
@@ -25,7 +31,7 @@ import Shop from "../shop/Shop.jsx";
 
                <h1>Hub</h1>
 
-               <button>Navigate to Home</button>
+               <button onClick={() => setShowHouses(true)}>Navigate to Home</button>
 
                <button onClick={() => setShowShop(true)}>Navigate to Store</button>
 

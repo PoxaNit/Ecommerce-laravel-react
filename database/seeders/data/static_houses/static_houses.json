@@ -4,6 +4,13 @@
   "description":"A small wooden hut at the swamp",
   "cost":"0.00",
   "capacity":"40.5",
-  "image_path":"images/static_houses/Wooden_hut.jpg"
+  "image_path":"images/static_houses/wooden_hut.jpg"
+ },
+ {
+  "name": "Small Brick House",
+  "description": "A simple single-story house made of red bricks, with a decent interior space and solid structure.",
+  "cost": 30000.00,
+  "capacity": 70.3,
+  "image_path": "images/static_houses/small_brick_house.jpg"
  }
 ]

@@ -35,7 +35,7 @@ import Bottom from "./subcomponents/Bottom.jsx";
      }, [allHouses]);
 
 
-
+React.useEffect(() => console.log(`Houses: houseInDetails: ${JSON.stringify(houseInDetails)}`), [houseInDetails]);
 
      React.useEffect(() => {
 
@@ -46,6 +46,7 @@ import Bottom from "./subcomponents/Bottom.jsx";
      return (
        <HousesContext.Provider value={{
          allHouses,
+         setAllHouses,
          housesOnDisplay,
          setHousesOnDisplay,
          setShowHouseDetails,

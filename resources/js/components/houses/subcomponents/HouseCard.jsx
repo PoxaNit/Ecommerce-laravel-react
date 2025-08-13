@@ -2,24 +2,36 @@ import React from "react";
 import HousesContext from "../../../contexts/HousesContext.jsx";
 
  function HouseCard ({house = {}}) {
+console.log(`HouseCard: house: ${JSON.stringify(house)}`)
 
      const {
        setShowHouseDetails,
-       setHouseInDetails
+       setHouseInDetails,
+       houseInDetails
      } = React.useContext(HousesContext);
 
-
-
+React.useEffect(() => console.log(`houseInDetails: ${JSON.stringify(houseInDetails)}`), [houseInDetails])
+/*
      const seeDetails = React.useCallback(() => {
-
-         setShowHouseDetails(true);
+console.log(`houseInDetails before: ${JSON.stringify(houseInDetails)}`)
 
          setHouseInDetails(house);
+console.log(`houseInDetails after: ${JSON.stringify(houseInDetails)}`)
 
-     }, []);
+     }, [houseInDetails]);
+*/
+     React.useEffect(() => {
+
+         if (houseInDetails?.house_id) {
+
+             setShowHouseDetails(true);
+
+         }
+
+     }, [houseInDetails]);
 
      return (
-       <li onClick={() => seeDetails()}>
+       <li onClick={() => setHouseInDetails(house)}>
 
          <img src={house.image_path} alt="house image"/>
 

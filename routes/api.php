@@ -68,7 +68,7 @@ Route::post("users/{user_id}/houses/static_houses/{static_house_id}", [UserHouse
 Route::delete("users/{user_id}/houses/static_houses/{static_house_id}", [UserHouseController::class, "destroy"]);
 Route::patch("users/{user_id}/inventory/houses/{house_id}/products/{product_id}", [UserHouseController::class, "deleteProduct"]);
 Route::delete("users/{user_id}/inventory/houses/{house_id}", [UserHouseController::class, "deleteAllProducts"]);
-
+Route::patch("users/{user_id}/houses/static_houses/{static_house_id}/activate", [UserHouseController::class, "house_activation"]);
 
  // Static house routes
 Route::get("users/{user_id}/houses/all", [StaticHousesController::class, "index"]);

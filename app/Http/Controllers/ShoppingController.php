@@ -289,7 +289,7 @@ class ShoppingController extends Controller
         $data = [
           "total_cost" => $totalCost,
           "total_products_volume" => $totalVolume,
-          "house_id" => $house->id,
+          "house_id" => $house->static_house_id,
           "user_balance" => $wallet->balance
         ];
 

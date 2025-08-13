@@ -2,19 +2,24 @@ import React from "react";
 import HousesContext from "../../../contexts/HousesContext.jsx";
 import AuthContext from "../../../contexts/AuthContext.jsx";
 import sellHouse from "../../../functions/sellHouse.jsx";
+import buyHouse from "../../../functions/buyHouse.jsx";
 import HouseItemCard from "./HouseItemCard.jsx";
 import HouseItemDetails from "./HouseItemDetails.jsx";
+import activeHouse from "../../../functions/activeHouse.jsx";
 
  function HouseDetails ({showThisComponent = () => {}}) {
 
      const {
        houseInDetails,
-       setHouseInDetails
+       setHouseInDetails,
+       setAllHouses,
+       setHousesOnDisplay
      } = React.useContext(HousesContext);
 
      const {
        userId,
        userBalance,
+       setUserBalance,
        token
      } = React.useContext(AuthContext);
 
@@ -30,7 +35,6 @@ import HouseItemDetails from "./HouseItemDetails.jsx";
      const [showItemDetails, setShowItemDetails] = React.useState(false);
 
 
-
      const sellThisHouse = React.useCallback(async () => {
 
          const response = await sellHouse(userId, houseInDetails.house_id, token);
@@ -39,7 +43,13 @@ import HouseItemDetails from "./HouseItemDetails.jsx";
 
              setHouseInDetails({});
 
+             setAllHouses(response.data);
+
+             setHousesOnDisplay(response.data)
+
              showThisComponent(false);
+
+             setUserBalance(response.balance);
 
          } else {
 
@@ -49,6 +59,48 @@ import HouseItemDetails from "./HouseItemDetails.jsx";
 
      }, []);
 
+
+     const buyThisHouse = React.useCallback(async () => {
+
+         const response = await buyHouse(userId, houseInDetails.house_id, token);
+
+         if (response.success) {
+
+             setHouseInDetails({});
+
+             setAllHouses(response.data);
+
+             setHousesOnDisplay(response.data)
+
+             showThisComponent(false);
+
+             setUserBalance(response.balance);
+
+         } else {
+
+             setErrorMessage(response.message);
+
+         };
+
+     }, []);
+
+
+     const activateOrNotThisHouse = React.useCallback(async (bool = true) => {
+
+         const response = await activeHouse(userId, houseInDetails.house_id, bool, token);
+
+         if (response.success) {
+
+             setHouseInDetails({...houseInDetails, is_active: bool});
+
+         } else {
+
+             setErrorMessage(response.message);
+
+         };
+
+
+     }, []);
 
      const viewItems = React.useCallback(() => {
 
@@ -118,6 +170,13 @@ import HouseItemDetails from "./HouseItemDetails.jsx";
                        </strong>
                      </p>
 
+                     <p>Is active: <strong>{houseInDetails.is_active ? "yes" : "no"}</strong></p>
+
+                     <button
+                      onClick={() => activateOrNotThisHouse(!houseInDetails.is_active)}
+                     >{houseInDetails.is_active ? "Disable" : "Enable"}
+                     </button>
+
                      <button
                       onClick={() => sellThisHouse()}
                      >Sell this house</button>
@@ -135,7 +194,9 @@ import HouseItemDetails from "./HouseItemDetails.jsx";
                        </strong>
                      </p>
 
-                     <button>Buy this house</button>
+                     <button onClick={() => buyThisHouse()}>Buy this house</button>
+
+                     {errorMessage && <p>{errorMessage}</p>}
 
                   </>
                  )

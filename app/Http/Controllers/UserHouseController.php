@@ -48,7 +48,18 @@ class UserHouseController extends Controller
 
     public function store ($user_id, $static_house_id) {
 
-        $user = User::findOrFail($user_id);
+        $user = User::find($user_id);
+
+        if (! $user):
+
+            return response()->json([
+              "message" => "No user found with id $user_id",
+              "success" => false,
+              "data" => null
+            ], 400);
+
+        endif;
+
 
         $static_house = Static_house::find($static_house_id);
 
@@ -62,7 +73,25 @@ class UserHouseController extends Controller
 
         endif;
 
+
+        $wallet = $user->wallet;
+
+        if ($static_house->cost > $wallet->balance):
+
+            return response()->json([
+              "message" => "The cost of the house is greater than the balance in user wallet",
+              "success" => false,
+              "data" => null
+            ], 409);
+
+        endif;
+
+
+        $user_have_no_houses = true;
+
         foreach ($user->houses as $house):
+
+            $user_have_no_houses = false;
 
             if ($house->static_house_id === $static_house->id):
 
@@ -76,32 +105,55 @@ class UserHouseController extends Controller
 
         endforeach;
 
+
         $house = User_house::create([
           "user_id" => $user->id,
           "static_house_id" => $static_house->id,
-          "is_active" => false,
+          "is_active" => $user_have_no_houses ? true : false,
           "occupied_space" => 0.00,
           "available_space" => $static_house->capacity
         ]);
 
+
+        $wallet->balance = bcsub($wallet->balance, $static_house->cost, 2);
+
+        $wallet->save();
+
+        $data = [
+          "house" => $house,
+          "updated_user_balance" => $wallet->balance
+        ];
+
         return response()->json([
           "message" => "Created!",
           "success" => true,
-          "data" => $house
+          "data" => $data
         ], 201);
 
     }
 
     public function destroy ($user_id, $static_house_id) {
 
-        $user = User::findOrFail($user_id);
+        $user = User::find($user_id);
 
-        $house = User_house::find($static_house_id);
+        if (! $user):
+
+            return response()->json([
+              "message" => "User with id $user_id not found",
+              "success" => false,
+              "data" => null
+            ], 404);
+
+        endif;
+
+        $house = User_house::where("static_house_id", $static_house_id)
+                           ->where("user_id", $user->id)
+                           ->first();
 
         if (! $house):
 
             return response()->json([
-              "message" => "Static house with id $static_house_id not found",
+              "message" => "User house with id $static_house_id not found",
               "success" => false,
               "data" => null
             ], 404);
@@ -112,7 +164,7 @@ class UserHouseController extends Controller
 
         $products = $house->products;
 
-        $totalMoney = 0.00;
+        $totalMoney = Static_house::find($static_house_id)->cost / 2;
 
         foreach ($products as $product):
 
@@ -129,7 +181,8 @@ class UserHouseController extends Controller
         $house->delete();
 
         $data = [
-          "total_money_earned" => $totalMoney
+          "total_money_earned" => $totalMoney,
+          "updated_user_balance" => $wallet->balance
         ];
 
         return response()->json([
@@ -302,6 +355,125 @@ class UserHouseController extends Controller
          "success" => true,
          "data" => $data
        ], 200);
+
+    }
+
+    public function house_activation ($user_id, $static_house_id, Request $request) {
+
+        $validated = $request->validate([
+          "activate" => "required|boolean"
+        ]);
+
+        $user = User::find($user_id);
+
+        if (! $user):
+
+            return response()->json([
+              "message" => "User with id $user_id not found",
+              "success" => false,
+              "data" => null
+            ], 400);
+
+        endif;
+
+        $house = User_house::where("static_house_id", $static_house_id)
+                           ->where("user_id", $user_id)
+                           ->first();
+
+        if (! $house):
+
+            return response()->json([
+              "message" => "House $static_house_id not found",
+              "success" => false,
+              "data" => null
+            ], 400);
+
+        endif;
+
+        if ($validated["activate"]): // If it's to activate
+
+            $active_house = $user->houses
+                                  ->where("is_active", $validated["activate"])
+                                  ->first();
+
+            if ($active_house):
+
+                if ($active_house->static_house_id === $house->static_house_id):
+
+                    return response()->json([
+                      "message" => "House $static_house_id is already active",
+                      "success" => false,
+                      "data" => null
+                    ], 409);
+
+                endif;
+
+                $active_house->is_active = false;
+                $active_house->save();
+
+            endif;
+
+            $house->is_active = true;
+            $house->save();
+
+            $houseData = [
+              "user_id" => $house->user_id,
+              "static_house_id" => $house->static_house_id,
+              "is_active" => true,
+              "occupied_space" => $house->occupied_space,
+              "available_space" => $house->available_space
+            ];
+
+
+            $data = [
+              "active_house" => $houseData
+            ];
+
+            return response()->json([
+              "message" => "House $static_house_id now is active",
+              "success" => true,
+              "data" => $data
+            ], 200);
+
+        else:
+
+            $house_active = $user->houses
+                                 ->where("is_active", true)
+                                 ->first();
+
+            if (! $house_active):
+
+                return response()->json([
+                  "message" => "House $static_house_id is not active",
+                  "success" => false,
+                  "data" => null
+                ], 400);
+
+            endif;
+
+            $house_active->is_active = false;
+
+            $house_active->save();
+
+            $houseData = [
+              "user_id" => $house_active->user_id,
+              "static_house_id" => $house_active->static_house_id,
+              "is_active" => false,
+              "occupied_space" => $house_active->occupied_space,
+              "available_space" => $house_active->available_space
+            ];
+
+            $data = [
+              "updated_house" => $houseData
+            ];
+
+            return response()->json([
+              "message" => "House $static_house_id is now not active",
+              "success" => true,
+              "data" => $data
+            ], 200);
+
+        endif;
 
     }
 

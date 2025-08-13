@@ -7,7 +7,7 @@ import HousesContext from "../../../contexts/HousesContext.jsx";
      const {
        housesOnDisplay
      } = React.useContext(HousesContext);
-
+React.useEffect(() => console.log(`Bottom: housesOnDisplay: ${JSON.stringify(housesOnDisplay)}`), [housesOnDisplay]);
      return (
        <div>
 

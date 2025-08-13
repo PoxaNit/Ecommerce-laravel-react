@@ -14,19 +14,19 @@ class User_house extends Model
       "available_space"
     ];
 
-    protected function user () {
+    public function user () {
 
         return $this->belongsTo(User::class);
 
     }
 
-    protected function products () {
+    public function products () {
 
         return $this->hasMany(House_product::class);
 
     }
 
-    protected function static_house () {
+    public function static_house () {
 
         return $this->belongsTo(Static_house::class);
 

@@ -32,7 +32,7 @@ import HousesContext from "../../../contexts/HousesContext.jsx";
 
          setHousesOnDisplay(filteredHouses);
 
-
+console.log(`Filters: allHouses: ${JSON.stringify(allHouses)}`)
      }, [allHouses]);
 
      return (

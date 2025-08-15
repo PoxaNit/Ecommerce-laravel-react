@@ -17,6 +17,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call([ProductSeeder::class]);
         $this->call([StaticHousesSeeder::class]);
-
+        $this->call([GamesSeeder::class]);
     }
 }

@@ -1,6 +1,7 @@
+import getAllHouses from "./getAllHouses.jsx";
 
  async function activeHouse (user_id, house_id, bool, token) {
-console.log(`bool passado: ${bool}`)
+
      const response = await fetch(`http://localhost:8000/api/users/${user_id}/houses/static_houses/${house_id}/activate`, {
        headers:{
          Authorization:`Bearer ${token}`,
@@ -12,7 +13,7 @@ console.log(`bool passado: ${bool}`)
      });
 
      const json = await response.json();
-console.log(`${JSON.stringify(json)}`)
+
      if (! json.success) {
 
          return {
@@ -23,10 +24,12 @@ console.log(`${JSON.stringify(json)}`)
 
      }
 
+     const updatedHouses = await getAllHouses(user_id, token);
+
      return {
        message:"",
-       success:true,
-       data:null
+       success: true,
+       data: updatedHouses
      };
 
  }

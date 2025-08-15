@@ -13,7 +13,7 @@ import getAllHouses from "./getAllHouses.jsx";
 
 
      const json = await response.json();
-console.log(`after sell: ${JSON.stringify(json)}`)
+
      if (!json.success) {
 
          return {

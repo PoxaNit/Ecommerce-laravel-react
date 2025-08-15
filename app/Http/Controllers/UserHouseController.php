@@ -435,7 +435,7 @@ class UserHouseController extends Controller
               "data" => $data
             ], 200);
 
-        else:
+        else: // If activate is to false
 
             $house_active = $user->houses
                                  ->where("is_active", true)
@@ -445,7 +445,7 @@ class UserHouseController extends Controller
 
                 return response()->json([
                   "message" => "House $static_house_id is not active",
-                  "success" => false,
+                  "success" => true,
                   "data" => null
                 ], 400);
 

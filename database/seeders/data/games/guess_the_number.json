@@ -1,0 +1,7 @@
+{
+ "name":"Guess the number",
+ "description":"Palpitate numbers and try to get the number right.",
+ "slug":"game-guess-the-number",
+ "min_players":1,
+ "max_players":2
+}

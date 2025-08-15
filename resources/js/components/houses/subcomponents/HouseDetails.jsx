@@ -91,7 +91,15 @@ import activeHouse from "../../../functions/activeHouse.jsx";
 
          if (response.success) {
 
-             setHouseInDetails({...houseInDetails, is_active: bool});
+             const house = response.data.filter(h => h.house_id === houseInDetails.house_id);
+
+             setAllHouses(response.data);
+
+             setHousesOnDisplay(response.data)
+
+             setHouseInDetails(house[0]);
+
+             setErrorMessage("");
 
          } else {
 

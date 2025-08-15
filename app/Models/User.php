@@ -65,4 +65,10 @@ class User extends Authenticatable
 
     }
 
+    public function game_stats () {
+
+        return $this->hasOne(Game_user_stat::class);
+
+    }
+
 }

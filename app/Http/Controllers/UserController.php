@@ -9,6 +9,7 @@ use App\Models\Cart;
 use App\Models\User_house;
 use App\Models\Static_house;
 use App\Models\User_wallet;
+use App\Models\Game_user_stat;
 
 class UserController extends Controller
 {
@@ -26,6 +27,8 @@ class UserController extends Controller
     }
 
     public function store (Request $request) {
+
+      // Validations
 
         $validated = $request->validate([
           "name" => "required|string|max:255",
@@ -54,6 +57,10 @@ class UserController extends Controller
           "password" => $hash
         ];
 
+
+
+     // Creating user and adjacent items
+
         $user = User::create($data);
 
         User_wallet::create([
@@ -70,6 +77,18 @@ class UserController extends Controller
           "available_space" => Static_house::where("id", 1)->first()->capacity,
           "occupied_space" => 0.00
         ]);
+
+        Game_user_stat::create([
+          "user_id" => $user->id,
+          "total_matches" => 0,
+          "total_victories" => 0,
+          "total_defeats" => 0,
+          "total_draws" => 0,
+          "total_points" => 0
+        ]);
+
+
+
 
 
         $user->wallet; // Load the wallet field in the return data

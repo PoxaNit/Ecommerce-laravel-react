@@ -73,9 +73,24 @@ Route::patch("users/{user_id}/houses/static_houses/{static_house_id}/activate", 
  // Static house routes
 Route::get("users/{user_id}/houses/all", [StaticHousesController::class, "index"]);
 
+
  // Wallet routes
 Route::get("users/{user_id}/wallet/balance", [WalletController::class, "showBalance"]);
 Route::post("users/{user_id}/wallet/balance", [WalletController::class, "increaseBalance"]);
 Route::patch("users/{user_id}/wallet/balance", [WalletController::class, "decreaseBalance"]);
+
+ // User stats routes
+
+   //...
+
+
+ // Game scores routes
+
+   //...
+
+
+ // Game routes
+
+   //...
 
 });

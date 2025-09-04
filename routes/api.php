@@ -11,6 +11,9 @@ use App\Http\Controllers\WalletController;
 use App\Http\Controllers\HouseProductController;
 use App\Http\Controllers\UserHouseController;
 use App\Http\Controllers\StaticHousesController;
+use App\Http\Controllers\GamesController;
+use App\Http\Controllers\GameScoresController;
+use App\Http\Controllers\GameUserStatsController;
 use App\Http\Middleware\AuthenticateWithToken;
 
 Route::post("login", [AuthController::class, "login"]);
@@ -81,16 +84,18 @@ Route::patch("users/{user_id}/wallet/balance", [WalletController::class, "decrea
 
  // User stats routes
 
-   //...
+Route::get("game_stats", [GameUserStatsController::class, "index"]);
+Route::get("users/{user_id}/game_stats", [GameUserStatsController::class, "show"]);
 
 
  // Game scores routes
 
-   //...
-
+Route::get("users/{user_id}/game_stats/game/{game_id}", [GameScoresController::class, "show"]);
+Route::post("users/{user_id}/game_stats/game/{game_id}", [GameScoresController::class, "store"]);
 
  // Game routes
 
-   //...
+Route::get("games", [GamesController::class, "index"]);
+Route::get("games/{game_id}", [GamesController::class, "show"]);
 
 });

@@ -10,7 +10,15 @@ class GameUserStatsController extends Controller
 {
     public function index () {
 
-        return Game_user_stat::all();
+        $data = [
+          "game_stats" => Game_user_stat::all()
+        ];
+
+        return response()->json([
+          "message" => "OK",
+          "success" => true,
+          "data" => $data
+        ], 200);
 
     }
 

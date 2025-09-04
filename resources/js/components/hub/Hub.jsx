@@ -3,13 +3,14 @@ import ReactDOM from "react-dom/client";
 import Account from "../account/Account.jsx";
 import Shop from "../shop/Shop.jsx";
 import Houses from "../houses/Houses.jsx";
+import GameHub from "../games/GameHub.jsx";
 
  function Hub () {
 
      const [showAccount, setShowAccount] = React.useState(false);
      const [showShop, setShowShop] = React.useState(false);
      const [showHouses, setShowHouses] = React.useState(false);
-
+     const [showGames, setShowGames] = React.useState(false);
 
      if (showAccount) {
 
@@ -23,6 +24,10 @@ import Houses from "../houses/Houses.jsx";
 
          return <Houses showThisComponent={setShowHouses}/>;
 
+     } else if (showGames) {
+
+         return <GameHub showThisComponent={setShowGames} />;
+
      } else {
 
          return (
@@ -35,7 +40,9 @@ import Houses from "../houses/Houses.jsx";
 
                <button onClick={() => setShowShop(true)}>Navigate to Store</button>
 
-               <button onClick={() => setShowAccount(true)}>account</button>
+               <button onClick={() => setShowAccount(true)}>Account</button>
+
+               <button onClick={() => setShowGames(true)}>Navigate to game hub</button>
 
            </div>
 

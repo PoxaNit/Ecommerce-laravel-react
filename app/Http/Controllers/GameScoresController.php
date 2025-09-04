@@ -24,6 +24,18 @@ class GameScoresController extends Controller
 
         endif;
 
+        $game = Game::find($game_id);
+
+        if (! $game):
+
+            return response()->json([
+              "message" => "Game with id $game_id not found",
+              "success" => false,
+              "data" => null
+            ], 400);
+
+        endif;
+
         $game_scores = Game_score::where("user_id", $user_id)
                                  ->get();
 
@@ -48,8 +60,6 @@ class GameScoresController extends Controller
                 case "draw":
                   $total_draws++;
                   break;
-
-                default: continue;
 
             endswitch;
 

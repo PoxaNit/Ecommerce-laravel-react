@@ -1,14 +1,18 @@
 import React from "react";
 import GuessContext from "../game_contexts/GuessContext.jsx";
+import GameContext from "../../../../../contexts/GameContext.jsx";
 import Horacio from "../../../components/Horacio.jsx";
 
  function Introduction () {
 
      const {
        setIntroduction,
-       setGameOnDisplay,
        setConfiguration
      } = React.useContext(GuessContext);
+
+     const {
+       setGameOnDisplay,
+     } = React.useContext(GameContext);
 
      const introMessage =
 `Hello, I'm Horacio!

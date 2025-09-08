@@ -89,7 +89,8 @@ class GameScoresController extends Controller
 
         $validated = $request->validate([
           "result" => "required|string|in:victory,draw,defeat",
-          "points_reward" => "required|integer"
+          "points_reward" => "required|integer",
+          "money_reward" => "required|decimal:2"
         ]);
 
         $user = User::find($user_id);
@@ -151,10 +152,16 @@ class GameScoresController extends Controller
         $user_stats->save();
 
 
+        $wallet = $user->wallet;
+
+        $wallet->balance = bcadd($wallet->balance, $validated["money_reward"], 2);
+
+        $wallet->save();
 
 
         $data = [
-          "match_score" => $game_score
+          "match_score" => $game_score,
+          "money_earned" => $validated["money_reward"]
         ];
 
 

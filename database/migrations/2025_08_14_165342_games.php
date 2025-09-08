@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("description");
             $table->string('slug')->unique();
             $table->string("image_path");
+            $table->json("rewards");
             $table->integer("min_players");
             $table->integer("max_players");
         });

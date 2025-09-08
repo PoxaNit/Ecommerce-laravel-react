@@ -1,7 +1,13 @@
 
- function getRandomNumber (min, max) {
+ function getRandomNumber (min, max, float = false) {
 
-     return Math.floor(Math.random() * (max - min) + min);
+     const n = Math.floor(Math.random() * (max - min) + min);
+
+     console.log(`getRandomNumber: n generated as float: ${parseFloat(n)}`)
+
+     if (float) return parseFloat(n).toFixed(2);
+
+     return n;
 
  }
 

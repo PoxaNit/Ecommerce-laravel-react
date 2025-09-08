@@ -13,4 +13,9 @@ class Game extends Model
       "min_players",
       "max_players"
     ];
+
+    protected $casts = [
+      "rewards" => "array"
+    ];
+
 }

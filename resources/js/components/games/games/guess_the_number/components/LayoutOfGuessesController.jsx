@@ -3,6 +3,10 @@ import LayoutOfGuesses from "./LayoutOfGuesses.jsx";
 import GuessContext from "../game_contexts/GuessContext.jsx";
 import headsOrTails from "../../../../../functions/headsOrTails.jsx";
 import getHoracioGuess from "../../../../../functions/getHoracioGuess.jsx";
+import sendMatchResults from "../../../../../functions/sendMatchResults.jsx";
+import AuthContext from "../../../../../contexts/AuthContext.jsx";
+import GameContext from "../../../../../contexts/GameContext.jsx";
+import getRandomNumber from "../../../../../functions/getRandomNumber.jsx";
 
  function LayoutOfGuessesController ({multiplayer = false}) {
 
@@ -11,6 +15,15 @@ import getHoracioGuess from "../../../../../functions/getHoracioGuess.jsx";
        gameDifficulty,
        generatedNumber
      } = React.useContext(GuessContext);
+
+     const {
+       userId,
+       token
+     } = React.useContext(AuthContext);
+
+     const {
+       gameOnDisplay
+     } = React.useContext(GameContext);
 
      const [choosenNumber, setChoosenNumber] = React.useState(null);
 
@@ -126,6 +139,34 @@ import getHoracioGuess from "../../../../../functions/getHoracioGuess.jsx";
 		   message: `Congratulations, Player! The secret number is ${choosenNumber}!`
 		 });
 
+		 (async function () {
+
+		     const gamePoints = gameOnDisplay.rewards.points;
+
+		     const generatedPoints = getRandomNumber(
+		       gamePoints.min,
+		       gamePoints.max
+		     );
+
+		     const gameMoney = gameOnDisplay.rewards.money;
+
+		     const generatedMoney = getRandomNumber(
+		       gameMoney.min,
+		       gameMoney.max,
+		       true
+		     );
+
+		     await sendMatchResults(
+		       userId,
+		       gameOnDisplay.id,
+		       "victory",
+		       generatedPoints,
+		       generatedMoney,
+		       token
+		     );
+
+		 })();
+
                  won = true;
 
 	     } else {
@@ -158,6 +199,20 @@ import getHoracioGuess from "../../../../../functions/getHoracioGuess.jsx";
 		               display: true,
 		               message: `Congratulations, Horacio! ${horacioResponse.message}`
 		             });
+
+		             (async function () {
+
+		                 await sendMatchResults(
+		                   userId,
+		                   gameOnDisplay.id,
+		                   "defeat",
+		                   0,
+		                   (0).toFixed(2),
+		                   token
+		                 );
+
+		             })();
+
 
 		         } else {
 
@@ -254,6 +309,20 @@ import getHoracioGuess from "../../../../../functions/getHoracioGuess.jsx";
 			       display: true,
 			       message: `Congratulations, Horacio! The secret number is ${horacioGuess}`
 			     });
+
+
+		             (async function () {
+
+		                 await sendMatchResults(
+		                   userId,
+		                   gameOnDisplay.id,
+		                   "defeat",
+		                   0,
+		                   (0).toFixed(2),
+		                   token
+		                 );
+
+		             })();
 
 			 }
 

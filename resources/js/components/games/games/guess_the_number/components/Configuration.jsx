@@ -1,5 +1,6 @@
 import React from "react";
 import GuessContext from "../game_contexts/GuessContext.jsx";
+import GameContext from "../../../../../contexts/GameContext.jsx";
 import GameMessage from "../../../components/GameMessage.jsx";
 
  function Configuration () {
@@ -9,8 +10,11 @@ import GameMessage from "../../../components/GameMessage.jsx";
        setNumberInterval,
        setConfiguration,
        setStartGame,
-       setGameOnDisplay
      } = React.useContext(GuessContext);
+
+     const {
+       setGameOnDisplay
+     } = React.useContext(GameContext);
 
      const [chooseDifficulty, setChooseDifficulty] = React.useState(true);
      const [chooseNumberInterval, setChooseNumberInterval] = React.useState(false);

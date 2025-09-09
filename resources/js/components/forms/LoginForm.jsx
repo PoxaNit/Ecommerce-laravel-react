@@ -6,7 +6,15 @@ import AuthContext from "../../contexts/AuthContext.jsx";
    changeForm = () => {} // This change from this form to the register form.
  }) {
 
-        const { setUserBalance, setUserEmail, setUserName, setToken, setAuthenticated, setUserId } = React.useContext(AuthContext);
+        const {
+	  setUserBalance,
+	  setUserEmail,
+	  setUserName,
+	  setToken,
+	  setAuthenticated,
+	  setUserId,
+          setUserIsAdmin
+	} = React.useContext(AuthContext);
 
         const form = React.useRef(null);
 
@@ -57,6 +65,8 @@ import AuthContext from "../../contexts/AuthContext.jsx";
 
                 const user = json.data;
 
+
+		if (user.role.toLowerCase() === "admin") setUserIsAdmin(true);
 
                 localStorage.setItem("token", token);
 

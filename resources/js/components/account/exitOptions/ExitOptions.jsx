@@ -1,10 +1,21 @@
 import React from "react";
 import Confirmation from "./confirmation/Confirmation.jsx";
 import AuthContext from "../../../contexts/AuthContext.jsx";
+import HubContext from "../../../contexts/HubContext.jsx";
 
  function ExitOptions () {
 
-     const { userId, token, setToken, setAuthenticated } = React.useContext(AuthContext);
+     const {
+       userId,
+       token,
+       setToken,
+       setAuthenticated,
+       userIsAdmin
+     } = React.useContext(AuthContext);
+
+     const {
+       setAdminMode
+     } = React.useContext(HubContext);
 
      const [showConfirmation, setShowConfirmation] = React.useState("");
 
@@ -51,6 +62,7 @@ import AuthContext from "../../../contexts/AuthContext.jsx";
 
          {showConfirmation === "delete" && <Confirmation setShow={setShowConfirmation} func={deleteAccount} title="Delete account"/>}
 
+         {userIsAdmin && <button onClick={() => setAdminMode(true)}>Admin Mode</button>}
          <button onClick={() => setShowConfirmation("logout")}>logout</button>
          <button onClick={() => setShowConfirmation("delete")}>delete account</button>
 

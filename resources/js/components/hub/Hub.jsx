@@ -4,7 +4,6 @@ import Account from "../account/Account.jsx";
 import Shop from "../shop/Shop.jsx";
 import Houses from "../houses/Houses.jsx";
 import GameHub from "../games/GameHub.jsx";
-import AdminInterface from "../adminInterface/AdminInterface.jsx";
 import HubContext from "../../contexts/HubContext.jsx";
 
  function Hub () {
@@ -16,7 +15,7 @@ import HubContext from "../../contexts/HubContext.jsx";
 
      const [adminMode, setAdminMode] = React.useState(false);
 
-     if (showAccount && !adminMode) {
+     if (showAccount) {
 
          return (
            <HubContext.Provider value={{
@@ -29,21 +28,28 @@ import HubContext from "../../contexts/HubContext.jsx";
            </HubContext.Provider>
          );
 
-     } else if (showShop && !adminMode) {
+     } else if (showShop) {
 
-         return <Shop closeShop={() => setShowShop(false)} />;
+         return (
+           <HubContext.Provider value={{
+             adminMode
+           }}>
 
-     } else if (showHouses && !adminMode) {
+             <Shop closeShop={() => setShowShop(false)} />
+
+           </HubContext.Provider>
+
+         );
+
+     } else if (showHouses) {
 
          return <Houses showThisComponent={setShowHouses}/>;
 
-     } else if (showGames && !adminMode) {
+     } else if (showGames) {
 
          return <GameHub showThisComponent={setShowGames} />;
 
      } else {
-
-         if (adminMode) return <AdminInterface />;
 
          return (
 

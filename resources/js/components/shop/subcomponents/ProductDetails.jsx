@@ -5,12 +5,18 @@ import AuthContext from "../../../contexts/AuthContext.jsx";
 import removeItemFromCart from "../../../functions/removeItemFromCart.jsx";
 import addItemToCart from "../../../functions/addItemToCart.jsx";
 import QuantityAddToCart from "./QuantityAddToCart";
+import HubContext from "../../../contexts/HubContext.jsx";
+import DiscountInterface from "./DiscountInterface.jsx";
 
  function ProductDetails ({
    product = {},
    showDetails = () => {},
    parentCaller = "Shop",
  }) {
+
+     const {
+       adminMode
+     } = React.useContext(HubContext);
 
      const [showQuantityPainel, setShowQuantityPainel] = React.useState(false);
 
@@ -20,6 +26,7 @@ import QuantityAddToCart from "./QuantityAddToCart";
 
      const { setParentCallerProductDetails } = React.useContext(ShopContext);
 
+     const [showDiscountInterface, setShowDiscountInterface] = React.useState(false);
 
      let quantity = 0;
 
@@ -49,6 +56,16 @@ import QuantityAddToCart from "./QuantityAddToCart";
          const newCart = await addItemToCart(userId, product.id, token, quantity);
 
      }, []);
+
+React.useEffect(() => {
+console.log(`showDiscountInterface state has changed!`)
+}, [showDiscountInterface])
+
+     if (showDiscountInterface) {
+
+         return <DiscountInterface product={product} showThisComponent={setShowDiscountInterface}/>;
+
+     }
 
 
      return (
@@ -118,9 +135,17 @@ import QuantityAddToCart from "./QuantityAddToCart";
 
            <section>
 
-             {parentCaller === "Shop" && <button onClick={() => setShowQuantityAddToCart(true)}>Add to cart</button> }
+             {(parentCaller === "Shop" && product.is_active) && <button onClick={() => setShowQuantityAddToCart(true)}>Add to cart</button> }
 
              {parentCaller === "Cart" && <button onClick={() => setShowQuantityPainel(true)}>Remove from cart</button>}
+
+             {adminMode && <button
+               onClick={() => setShowDiscountInterface(true)}
+             >Aply Discount</button>}
+
+             {adminMode && <button>Edit Product</button>}
+
+             {adminMode && <button>Delete Product</button>}
 
            </section>
 

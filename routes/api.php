@@ -14,7 +14,9 @@ use App\Http\Controllers\StaticHousesController;
 use App\Http\Controllers\GamesController;
 use App\Http\Controllers\GameScoresController;
 use App\Http\Controllers\GameUserStatsController;
+use App\Http\Controllers\DiscountController;
 use App\Http\Middleware\AuthenticateWithToken;
+use App\Http\Middleware\VerifyIfIsAdmin;
 
 Route::post("login", [AuthController::class, "login"]);
 
@@ -97,5 +99,16 @@ Route::post("users/{user_id}/game_stats/game/{game_id}", [GameScoresController::
 
 Route::get("games", [GamesController::class, "index"]);
 Route::get("games/{game_id}", [GamesController::class, "show"]);
+
+
+  Route::middleware([VerifyIfIsAdmin::class])->group(function () {
+
+       // Discount routes
+
+      Route::get("discounts/products", [DiscountController::class, "index"]);
+      Route::post("discounts/products/{product_id}", [DiscountController::class, "makeDiscount"]);
+
+  });
+
 
 });

@@ -11,7 +11,8 @@ class Order_item extends Model
       "quantity",
       "price_each",
       "subtotal",
-      "product_id"
+      "product_id",
+      "in_discount"
     ];
 
     public function order () {

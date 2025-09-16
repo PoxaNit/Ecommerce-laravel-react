@@ -11,6 +11,7 @@ use App\Models\User_house;
 use App\Models\User_wallet;
 use App\Models\Order;
 use App\Models\Order_item;
+use App\Models\Discount;
 
 class ShoppingController extends Controller
 {
@@ -187,14 +188,16 @@ class ShoppingController extends Controller
         foreach ($cart_items as $item):
 
             $product = Product::find($item->product_id);
+//return ["priceWithDiscount"=>$product->priceWithDiscount()];
 
-            $subtotal = bcadd(0, $product->price * $item->quantity, 2);
+            $subtotal = bcadd(0, $product->priceWithDiscount() * $item->quantity, 2);
 
             $items_info[] = [
               "product_id" => $product->id,
 	      "subtotal" => $subtotal,
 	      "quantity" => $item->quantity,
-	      "price_each" => $product->price
+	      "price_each" => $product->price,
+              "in_discount" => $product->inDiscount()
             ];
 
             $totalCost = bcadd($totalCost, $subtotal, 2);
@@ -307,12 +310,13 @@ class ShoppingController extends Controller
 
         foreach ($items_info as $item):
 
-            Order_item::create([
+return            Order_item::create([
 	      "order_id" => $order["id"],
 	      "quantity" => $item["quantity"],
 	      "price_each" => $item["price_each"],
 	      "subtotal" => $item["subtotal"],
-	      "product_id" => $item["product_id"]
+	      "product_id" => $item["product_id"],
+              "in_discount" => $item["in_discount"]
 	    ]);
 
         endforeach;

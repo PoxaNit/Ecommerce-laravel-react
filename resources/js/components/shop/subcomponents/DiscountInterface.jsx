@@ -21,6 +21,10 @@ import AuthContext from "../../../contexts/AuthContext.jsx";
 
      const finalPrice = React.useRef(0);
 
+     const startTimeInput = React.useRef(null);
+
+     const endTimeInput = React.useRef(null);
+
      const handlePercentChange = React.useCallback(() => {
 
          const n = parseFloat(percentInputRef.current.value.replace(",", ".")).toFixed(2);
@@ -81,8 +85,16 @@ import AuthContext from "../../../contexts/AuthContext.jsx";
            onChange={handlePercentChange}
          />
 
+         <label htmlFor="start">Starts at (optional):</label>
+
+         <input type="datetime" id="start" ref={startTimeInput}/>
+
+         <label htmlFor="end">Ends at:</label>
+
+         <input type="datetime" id="end" ref={endTimeInput}/>
+
          <button
-           onClick={() => aplyDiscount(token, product.id, finalPrice.current.toFixed(2))}
+           onClick={() => aplyDiscount(token, product.id, percentInputRef.current.value, startTimeInput.current.value, endTimeInput.current.value)}
          >Aply Discount</button>
 
        </>

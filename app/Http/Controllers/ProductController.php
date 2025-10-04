@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Models\Product;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
+use App\Models\ProductCategory;
+use App\Models\ProductSubcategory;
 
 class ProductController extends Controller
 {
@@ -30,32 +33,112 @@ class ProductController extends Controller
 
     }
 
-    public function store (Request $request) {
+
+
+    public function store(Request $request) {
 
         $validated = $request->validate([
-          "name"
-          => "required|string|max:255",
-          "description"
-          => "required|string|max:255",
-          "short_description"
-          => "required|string|max:255",
-          "price"
-          => "required|numeric|min:0",
-          "stock"
-          => "required|numeric|min:0",
-          "is_active"
-          => "required|boolean"
+          "name"              => "required|string|max:255",
+          "description"       => "required|string|max:255",
+          "short_description" => "required|string|max:255",
+          "price"             => "required|numeric|min:0",
+          "stock"             => "required|numeric|min:0",
+          "is_active"         => "required|boolean",
+          "weight"            => "required|numeric|min:0.00",
+          "height"            => "required|numeric|min:0.00",
+          "width"             => "required|numeric|min:0.00",
+          "length"            => "required|numeric|min:0.00",
+          "slug"              => "required|string",
+          "sku"               => "required|string",
+          "category"          => "required|string",
+          "subcategory"       => "required|string",
+          "image"             => "required|image|mimes:jpg,jpeg,png|max:2048",
         ]);
 
+        if (Product::where("slug", $validated["slug"])->exists()) {
+            return response()->json([
+              "message" => "Slug already exists.",
+              "data" => null,
+              "success" => false
+            ], 400);
+        }
 
-        Product::create($validated);
+        if (Product::where("sku", $validated["sku"])->exists()) {
+            return response()->json([
+              "message" => "SKU already exists.",
+              "data" => null,
+              "success" => false
+            ], 400);
+        }
+
+
+        $category = ProductCategory::where("name", $validated["category"])->first();
+
+        $subcategory = ProductSubcategory::where("name", $validated["subcategory"])->first();
+
+        if (!$category) {
+
+            return response()->json([
+              "message" => "Category $validated[category] does not exist.",
+              "data" => null,
+              "success" => false
+            ], 400);
+        }
+
+        if (!$subcategory) {
+
+            return response()->json([
+              "message" => "Subcategory $validated[subcategory] does not exist.",
+              "data" => null,
+              "success" => false
+            ], 400);
+        }
+
+        if (!($subcategory->category() === $validated["category"])):
+
+            return response()->json([
+              "message" => "$validated[subcategory] subcategory doesn't belong to $validated[category] category.",
+              "data" => null,
+              "success" => false
+            ], 400);
+
+        endif;
+
+        $imagePath = null;
+
+        if ($request->hasFile("image")) {
+
+            $directory = "images/products/byUsers";
+
+            $uniqueId  = Str::uuid()->toString();
+
+            $extension = $request->file("image")->getClientOriginalExtension();
+
+            $fileName  = $uniqueId . "." . $extension;
+
+            $request->file("image")->move($directory, $fileName);
+
+            $imagePath = "images/products/byUsers/{$fileName}";
+        }
+
+        // Merge categories (JSON) e remove category/subcategory
+        $categoriesJson = json_encode([
+          "category"    => $validated["category"],
+          "subcategory" => $validated["subcategory"]
+        ]);
+
+        unset($validated["category"], $validated["subcategory"]);
+
+        $product = Product::create(array_merge($validated, [
+          "categories"      => json_decode($categoriesJson),
+          "image_path"      => $imagePath,
+        ]));
 
         return response()->json([
-          "message" => "Created!",
-          "data" => $validated,
+          "message" => "Product created!",
+          "data"    => Product::all(),
           "success" => true
         ], 201);
-
     }
 
 
@@ -73,17 +156,57 @@ class ProductController extends Controller
           "stock"
           => "sometimes|numeric|min:0",
           "is_active"
-          => "sometimes|boolean"
+          => "sometimes|boolean",
+          "weight"
+          => "sometimes|numeric|min:0.00",
+          "height"
+          => "sometimes|numeric|min:0.00",
+          "width"
+          => "sometimes|numeric|min:0.00",
+          "length"
+          => "sometimes|numeric|min:0.00",
+          "categories"
+          => "sometimes|json"
         ]);
 
+        $data = [
+          "name"
+          => $validated["name"],
+          "description"
+          => $validated["description"],
+          "short_description"
+          => $validated["short_description"],
+          "price"
+          => $validated["price"],
+          "stock"
+          => $validated["stock"],
+          "is_active"
+          => $validated["is_active"],
+          "weight"
+          => $validated["weight"],
+          "width"
+          => $validated["width"],
+          "height"
+          => $validated["height"],
+          "length"
+          => $validated["length"],
+          "categories"
+          => null
+        ];
+
+        if ($validated["categories"] ?? null):
+
+            $data["categories"] = json_decode($validated["categories"]);
+
+        endif;
 
         $product = Product::findOrFail($id);
 
-        $product->update($validated);
+        $product->update($data);
 
         return response()->json([
           "message" => "Updated!",
-          "data" => $product,
+          "data" => Product::all(),
           "success" => true
         ], 200);
 
@@ -97,9 +220,9 @@ class ProductController extends Controller
 
         return response()->json([
           "message" => "Deleted!",
-          "data" => null,
+          "data" => Product::all(),
           "success" => true
-        ], 204);
+        ], 200);
 
     }
 

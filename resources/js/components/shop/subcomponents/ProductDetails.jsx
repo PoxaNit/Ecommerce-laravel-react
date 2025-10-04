@@ -7,6 +7,9 @@ import addItemToCart from "../../../functions/addItemToCart.jsx";
 import QuantityAddToCart from "./QuantityAddToCart";
 import HubContext from "../../../contexts/HubContext.jsx";
 import DiscountInterface from "./DiscountInterface.jsx";
+import Confirm from "./Confirm.jsx";
+import deleteProduct from "../../../functions/deleteProduct.jsx";
+import EditProduct from "./EditProduct.jsx";
 
  function ProductDetails ({
    product = {},
@@ -24,9 +27,17 @@ import DiscountInterface from "./DiscountInterface.jsx";
 
      const { userId, token } = React.useContext(AuthContext);
 
-     const { setParentCallerProductDetails } = React.useContext(ShopContext);
+     const {
+       setParentCallerProductDetails,
+       setProducts,
+       products
+     } = React.useContext(ShopContext);
 
      const [showDiscountInterface, setShowDiscountInterface] = React.useState(false);
+
+     const [showEditProduct, setShowEditProduct] = React.useState(false);
+
+     const [showConfirm, setShowConfirm] = React.useState(false);
 
      let quantity = 0;
 
@@ -57,13 +68,14 @@ import DiscountInterface from "./DiscountInterface.jsx";
 
      }, []);
 
-React.useEffect(() => {
-console.log(`showDiscountInterface state has changed!`)
-}, [showDiscountInterface])
 
      if (showDiscountInterface) {
 
          return <DiscountInterface product={product} showThisComponent={setShowDiscountInterface}/>;
+
+     } else if (showEditProduct) {
+
+         return <EditProduct showThisComponent={setShowEditProduct} product={product}/>;
 
      }
 
@@ -133,6 +145,20 @@ console.log(`showDiscountInterface state has changed!`)
 
            </section>
 
+           {showConfirm && <Confirm
+              showThisComponent={setShowConfirm}
+              callback={async () => {
+
+                  const updatedProducts = await deleteProduct(token, product.id);
+
+                  setProducts(updatedProducts);
+
+                  close();
+
+              }}
+            />
+           }
+
            <section>
 
              {(parentCaller === "Shop" && product.is_active) && <button onClick={() => setShowQuantityAddToCart(true)}>Add to cart</button> }
@@ -143,9 +169,13 @@ console.log(`showDiscountInterface state has changed!`)
                onClick={() => setShowDiscountInterface(true)}
              >Aply Discount</button>}
 
-             {adminMode && <button>Edit Product</button>}
+             {adminMode && <button
+               onClick={() => setShowEditProduct(true)}
+             >Edit Product</button>}
 
-             {adminMode && <button>Delete Product</button>}
+             {adminMode && <button
+                onClick={() => setShowConfirm(true)}
+             >Delete Product</button>}
 
            </section>
 

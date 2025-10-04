@@ -10,6 +10,7 @@ import getCart from "../../functions/getCart.jsx";
 import Options from "./subcomponents/Options.jsx";
 import Checkout from "./subcomponents/Checkout.jsx";
 import ProductCategoryFilter from "./subcomponents/ProductCategoryFilter.jsx";
+import CreateProduct from "./subcomponents/CreateProduct.jsx";
 
  function Shop ({closeShop = () => {}}) {
 
@@ -36,6 +37,9 @@ import ProductCategoryFilter from "./subcomponents/ProductCategoryFilter.jsx";
 
      const [showCheckout, setShowCheckout] = React.useState(false);
 
+
+     // Render or not the register form to new products
+     const [showCreateProduct, setShowCreateProduct] = React.useState(false);
 
 
      // Allow the ProductDetais component to make conditional renderization depending on the parent component who called it
@@ -182,7 +186,9 @@ localStorage.removeItem("cart");
              productInDetails,
              setCart,
              setShowProductDetails,
-             setProductInDetails
+             setProductInDetails,
+             setProducts,
+             products
            }}>
               <ProductDetails
                    product={productInDetails}
@@ -220,6 +226,7 @@ localStorage.removeItem("cart");
                   showCart={setShowCart}
                   showCheckout={setShowCheckout}
                   showCategoryFilter={setShowCategoryFilter}
+                  showCreateProduct={setShowCreateProduct}
                 />
 
            </ShopContext.Provider>);
@@ -252,6 +259,20 @@ localStorage.removeItem("cart");
            }}>
 
              <ProductCategoryFilter showThisComponent={setShowCategoryFilter} />
+
+           </ShopContext.Provider>
+         );
+
+     } else if (showCreateProduct) {
+
+         return (
+           <ShopContext.Provider value={{
+             setProducts
+           }}>
+
+             <CreateProduct
+               showThisComponent={setShowCreateProduct}
+             />
 
            </ShopContext.Provider>
          );

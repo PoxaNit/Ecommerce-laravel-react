@@ -1,23 +1,21 @@
 
- async function aplyDiscount (token, productId, price) {
-console.log("aplyDiscount function executing...")
+ async function aplyDiscount (token, productId, discountPercent, starts_at, ends_at) {
 
-console.log(`type of price: ${typeof price}`)
-     const response = await fetch(`http://localhost:8000/api/products/${productId}`, {
-       method: "PATCH",
+     const response = await fetch(`http://localhost:8000/api/discounts/products/${productId}`, {
+       method: "POST",
        headers:{
          Accept: "application/json",
          "Content-Type": "application/json",
          Authorization: `Bearer ${token}`
        },
        body:JSON.stringify({
-         price: parseFloat(price).toFixed(2)
+         discountPercent: discountPercent,
+         starts_at: starts_at,
+         ends_at: ends_at
        })
      });
 
      const json = await response.json();
-
-console.log(`json: ${JSON.stringify(json)}`)
 
  }
 

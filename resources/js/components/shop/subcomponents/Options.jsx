@@ -1,14 +1,18 @@
 import React from "react";
 import ShopContext from "../../../contexts/ShopContext.jsx";
+import HubContext from "../../../contexts/HubContext.jsx";
 
  function Options ({
    showCart = () => {},
    showOptions = () => {},
    showCheckout = () => {},
-   showCategoryFilter = () => {}
+   showCategoryFilter = () => {},
+   showCreateProduct = () => {}
  }) {
 
      const { setNameFilter } = React.useContext(ShopContext);
+
+     const { adminMode } = React.useContext(HubContext);
 
      const displayCart = React.useCallback(() => {
 
@@ -34,6 +38,7 @@ import ShopContext from "../../../contexts/ShopContext.jsx";
          <button onClick={() => displayCart()}>View cart</button>
          <button onClick={() => displayCheckout()}>Checkout</button>
          <button onClick={() => {showOptions(false); showCategoryFilter(true)}}>Filter by category</button>
+         {adminMode && <button onClick={() => {showCreateProduct(true); showOptions(false)}}>Register Product</button> }
 
        </div>
      );

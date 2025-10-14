@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create("product_subcategories", function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string("parentCategory");
             $table->string("name");
+            $table->string("parentCategory");
+            $table->boolean("active");
         });
     }
 

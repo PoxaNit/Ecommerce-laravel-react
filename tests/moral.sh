@@ -11,3 +11,9 @@
      ./logout.sh $token
 
  }
+
+ function getToken {
+
+     token=$(./loginApi.sh | jq -r .token)
+
+ }

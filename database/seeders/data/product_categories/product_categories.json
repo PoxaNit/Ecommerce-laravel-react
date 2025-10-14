@@ -1,11 +1,14 @@
 [
  {
-  "name":"appliances"
+  "name":"appliances",
+  "active":true
  },
  {
-  "name":"eletronics"
+  "name":"eletronics",
+  "active":true
  },
  {
-  "name":"furniture"
+  "name":"furniture",
+  "active":true
  }
 ]

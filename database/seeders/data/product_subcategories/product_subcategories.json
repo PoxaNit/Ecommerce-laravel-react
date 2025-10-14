@@ -1,42 +1,52 @@
 [
  {
   "name":"blenders",
-  "parentCategory":"appliances"
+  "parentCategory":"appliances",
+  "active":true
  },
  {
   "name":"refrigerators",
-  "parentCategory":"appliances"
+  "parentCategory":"appliances",
+  "active":true
  },
  {
   "name":"microwaves",
-  "parentCategory":"appliances"
+  "parentCategory":"appliances",
+  "active":true
  },
  {
   "name":"washing_machines",
-  "parentCategory":"appliances"
+  "parentCategory":"appliances",
+  "active":true
  },
  {
   "name":"phones",
-  "parentCategory":"eletronics"
+  "parentCategory":"eletronics",
+  "active":true
  },
  {
   "name":"televisions",
-  "parentCategory":"eletronics"
+  "parentCategory":"eletronics",
+  "active":true
  },
  {
   "name":"beds",
-  "parentCategory":"furniture"
+  "parentCategory":"furniture",
+  "active":true
  },
  {
   "name":"couches",
-  "parentCategory":"furniture"
+  "parentCategory":"furniture",
+  "active":true
  },
  {
   "name":"kitchen_cabinets",
-  "parentCategory":"furniture"
+  "parentCategory":"furniture",
+  "active":true
  },
  {
   "name":"tables",
-  "parentCategory":"furniture"
+  "parentCategory":"furniture",
+  "active":true
  }
 ]

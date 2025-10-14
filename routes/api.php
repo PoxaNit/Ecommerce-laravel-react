@@ -15,6 +15,9 @@ use App\Http\Controllers\GamesController;
 use App\Http\Controllers\GameScoresController;
 use App\Http\Controllers\GameUserStatsController;
 use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\ProductCategoryAndSubcategoryController;
+use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\ProductSubcategoryController;
 use App\Http\Middleware\AuthenticateWithToken;
 use App\Http\Middleware\VerifyIfIsAdmin;
 
@@ -107,6 +110,26 @@ Route::get("games/{game_id}", [GamesController::class, "show"]);
 
       Route::get("discounts/products", [DiscountController::class, "index"]);
       Route::post("discounts/products/{product_id}", [DiscountController::class, "makeDiscount"]);
+
+
+       // Product categories and subcategories routes
+      Route::get("product/categories_subcategories", [ProductCategoryAndSubcategoryController::class, "index"]);
+
+
+       // Product categories routes
+      Route::get("product/categories", [ProductCategoryController::class, "index"]);
+      Route::post("product/categories", [ProductCategoryController::class, "store"]);
+      Route::patch("product/categories/{category_id}", [ProductCategoryController::class, "update"]);
+      Route::patch("product/categories/active/{category_id}", [ProductCategoryController::class, "activation"]);
+      Route::delete("product/categories/{category_id}", [ProductCategoryController::class, "delete"]);
+
+
+       // Product subcategories routes
+      Route::get("product/subcategories", [ProductSubcategoryController::class, "index"]);
+      Route::post("product/subcategories", [ProductSubcategoryController::class, "store"]);
+      Route::patch("product/subcategories/{subcategory_id}", [ProductSubcategoryController::class, "update"]);
+      Route::patch("product/subcategories/active/{subcategory_id}", [ProductSubcategoryController::class, "activation"]);
+      Route::delete("product/subcategories/{subcategory_id}", [ProductSubcategoryController::class, "delete"]);
 
   });
 

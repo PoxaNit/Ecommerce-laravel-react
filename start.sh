@@ -4,7 +4,7 @@
 
  function commit {
 
-     echo "Do you want to commit the changes? (y/N)"
+     echo -e "\nDo you want to commit the changes? (y/N)"
 
      read -n 1 answer
 
@@ -17,7 +17,7 @@
 
      git add .
 
-     echo "Updates made:"
+     echo -e "\nUpdates made:"
 
      read changes_made
 

@@ -4,7 +4,7 @@
 
  function commit {
 
-     echo -e "\nDo you want to commit the changes? (y/N)"
+     echo -e "\n\033[1;33mDo you want to commit the changes? \033[1;36m(y/N)"
 
      read -n 1 answer
 
@@ -17,13 +17,13 @@
 
      git add .
 
-     echo -e "\nUpdates made:"
+     echo -e "\n\033[1;32mUpdates made:"
 
      read changes_made
 
      git commit -m "$changes_made"
 
-     echo "To wich branch do you want to send the updates:"
+     echo -e "\033[1;33mTo wich branch do you want to send the updates:"
 
      read branch
 

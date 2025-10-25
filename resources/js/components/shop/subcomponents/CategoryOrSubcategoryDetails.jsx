@@ -2,6 +2,7 @@ import React from "react";
 import ShopContext from "../../../contexts/ShopContext.jsx";
 import AuthContext from "../../../contexts/AuthContext.jsx";
 import deleteCategoryOrSubcategory from "../../../functions/deleteCategoryOrSubcategory.jsx";
+import updateCategoryOrSubcategory from "../../../functions/updateCategoryOrSubcategory.jsx";
 
  function CategoryOrSubcategoryDetails ({showThisComponent}) {
 
@@ -15,6 +16,8 @@ import deleteCategoryOrSubcategory from "../../../functions/deleteCategoryOrSubc
      } = React.useContext(AuthContext);
 
      const shortName = categoryOrSubcategoryInDetails; // Just to not need to write the whole name each time
+
+     const [showUpdateForm, setShowUpdateForm] = React.useState(false);
 
      return (
        <>
@@ -33,19 +36,36 @@ import deleteCategoryOrSubcategory from "../../../functions/deleteCategoryOrSubc
            )
          }
 
-         <button>Update</button>
+         <button
+           onClick={async () => {
+
+               const response = updateCategoryOrSubcategory(token, shortName.id, );
+
+           }}
+         >Update</button>
 
          <button
            onClick={async () => {
 
              // Check if the object to be deleted is category or subcategory
                const isSubcategory = shortName?.parentCategory ? "s" : null;
-console.log(`token: ${token}`)
+
                const response = await deleteCategoryOrSubcategory(token, shortName.id, isSubcategory);
-console.log(JSON.stringify(response))
 
            }}
          >Delete</button>
+
+         {
+           showUpdateForm && (
+
+               <form>
+
+                 <label>
+
+               </form>
+
+           )
+         }
 
        </>
      );

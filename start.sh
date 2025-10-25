@@ -23,11 +23,11 @@
 
      git commit -m "$changes_made"
 
-     echo "Wich branch:"
+     echo "To wich branch do you want to send the updates:"
 
      read branch
 
-     git push origin $branch
+     git push origin "$branch"
 
  }
 

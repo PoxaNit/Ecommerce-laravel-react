@@ -11,10 +11,15 @@ import Options from "./subcomponents/Options.jsx";
 import Checkout from "./subcomponents/Checkout.jsx";
 import ProductCategoryFilter from "./subcomponents/ProductCategoryFilter.jsx";
 import CreateProduct from "./subcomponents/CreateProduct.jsx";
+import ManageProductCategories from "./subcomponents/ManageProductCategories.jsx";
+import CategoryOrSubcategoryDetails from "./subcomponents/CategoryOrSubcategoryDetails.jsx";
 
  function Shop ({closeShop = () => {}}) {
 
-     const { token, userId } = React.useContext(AuthContext);
+     const {
+       token,
+       userId
+     } = React.useContext(AuthContext);
 
      // Keep all products became from backend in this component and children
      const [products, setProducts] = React.useState({});
@@ -52,7 +57,12 @@ import CreateProduct from "./subcomponents/CreateProduct.jsx";
    // Defines if the products list is filtered or not
      const [productListFiltered, setProductListFiltered] = React.useState(false);
 
+   // Where the admin can manage the product categories and subcategories
+     const [showCategoriesManager, setShowCategoriesManager] = React.useState(false);
 
+
+   // When the admin is going managing the categories and subcategories of products and want to see it in details
+     const [categoryOrSubcategoryInDetails, setCategoryOrSubcategoryInDetails] = React.useState(null);
 
 
      /* Depends on the 'productListFiltered' state.
@@ -227,7 +237,8 @@ localStorage.removeItem("cart");
                   showCheckout={setShowCheckout}
                   showCategoryFilter={setShowCategoryFilter}
                   showCreateProduct={setShowCreateProduct}
-                />
+                  showCategoriesManager={setShowCategoriesManager}
+             />
 
            </ShopContext.Provider>);
 
@@ -277,6 +288,36 @@ localStorage.removeItem("cart");
            </ShopContext.Provider>
          );
 
+     } else if (showCategoriesManager) {
+
+         return (
+
+           <ShopContext.Provider value={{
+             setCategoryOrSubcategoryInDetails
+           }}>
+
+             <ManageProductCategories
+               showThisComponent={setShowCategoriesManager}
+             />
+
+           </ShopContext.Provider>
+
+         );
+
+     } else if (categoryOrSubcategoryInDetails) {
+
+         return (
+           <ShopContext.Provider value={{
+             categoryOrSubcategoryInDetails,
+             setShowCategoriesManager
+           }}>
+
+               <CategoryOrSubcategoryDetails showThisComponent={setCategoryOrSubcategoryInDetails}/>
+
+           </ShopContext.Provider>
+
+         );
+
      }
 
 
@@ -320,7 +361,8 @@ localStorage.removeItem("cart");
          setCategoryFilter,
          nameFilter,
          setNameFilter,
-         subCategoryFilter
+         subCategoryFilter,
+         setShowCategoriesManager
        }}>
 
 

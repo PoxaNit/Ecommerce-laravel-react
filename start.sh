@@ -31,8 +31,6 @@
 
      git push origin "$branch"
 
-     echo -e "\033[1;36m"
-
  }
 
  trap commit SIGINT

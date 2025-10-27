@@ -3,6 +3,7 @@ import ShopContext from "../../../contexts/ShopContext.jsx";
 import AuthContext from "../../../contexts/AuthContext.jsx";
 import deleteCategoryOrSubcategory from "../../../functions/deleteCategoryOrSubcategory.jsx";
 import updateCategoryOrSubcategory from "../../../functions/updateCategoryOrSubcategory.jsx";
+import UpdateCategoryForm from "./UpdateCategoryForm.jsx";
 
  function CategoryOrSubcategoryDetails ({showThisComponent}) {
 
@@ -18,6 +19,25 @@ import updateCategoryOrSubcategory from "../../../functions/updateCategoryOrSubc
      const shortName = categoryOrSubcategoryInDetails; // Just to not need to write the whole name each time
 
      const [showUpdateForm, setShowUpdateForm] = React.useState(false);
+
+
+
+
+
+     if (showUpdateForm) {
+
+         return (
+             <UpdateCategoryForm
+               showThisComponent={setShowUpdateForm}
+               data={shortName}
+               subcategoryMode={shortName?.parentCategory}
+             />
+         );
+
+     }
+
+
+
 
      return (
        <>
@@ -37,11 +57,7 @@ import updateCategoryOrSubcategory from "../../../functions/updateCategoryOrSubc
          }
 
          <button
-           onClick={async () => {
-
-               const response = updateCategoryOrSubcategory(token, shortName.id, );
-
-           }}
+           onClick={async () => setShowUpdateForm(true)}
          >Update</button>
 
          <button
@@ -54,18 +70,6 @@ import updateCategoryOrSubcategory from "../../../functions/updateCategoryOrSubc
 
            }}
          >Delete</button>
-
-         {
-           showUpdateForm && (
-
-               <form>
-
-                 <label>
-
-               </form>
-
-           )
-         }
 
        </>
      );

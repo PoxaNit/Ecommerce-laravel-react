@@ -86,6 +86,14 @@ class ProductCategoryController extends Controller
 
             endforeach;
 
+            foreach (ProductSubcategory::all() as $subcategory):
+
+                $subcategory->parentCategory = $validated["name"];
+
+                $subcategory->save();
+
+            endforeach;
+
         endif;
 
 

@@ -41,10 +41,10 @@ import updateCategoryOrSubcategory from "../../../functions/updateCategoryOrSubc
 
      const updateData = React.useCallback(async () => {
 
-         const dataToSend = JSON.stringify({
+         const dataToSend = {
            name: nameInputRef.current.value,
-           parentCategory: parentCategoryInputRef.current.value
-         });
+           parentCategory: parentCategoryInputRef.current?.value
+         };
 
          const response = await updateCategoryOrSubcategory(token, shortName.id, dataToSend, shortName?.parentCategory);
 
@@ -53,7 +53,7 @@ import updateCategoryOrSubcategory from "../../../functions/updateCategoryOrSubc
 
           setShowMessage({show: true, text: response.message});
 
-     });
+     }, []);
 
      return (
        <form>

@@ -8,7 +8,7 @@
 
      let urlMode = (mode === "s") ? "subcategories" : "categories";
 
-     const response = await fetch(`http://localhost:8000/api/product/${urlMode}/id`, {
+     const response = await fetch(`http://localhost:8000/api/product/${urlMode}/${id}`, {
        method: "PATCH",
        headers: {
          "Content-Type": "application/json",

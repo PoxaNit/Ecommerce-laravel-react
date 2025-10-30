@@ -24,6 +24,12 @@ import CategoryOrSubcategoryDetails from "./subcomponents/CategoryOrSubcategoryD
      // Keep all products became from backend in this component and children
      const [products, setProducts] = React.useState({});
 
+     // The existent categories of the products
+     const [categories, setCategories] = React.useState([]);
+
+     // The existent subcategories of the products
+     const [subcategories, setSubcategories] = React.useState([]);
+
      // Shows the ProductCategoryFilter component
      const [showCategoryFilter, setShowCategoryFilter] = React.useState(false);
 
@@ -79,9 +85,23 @@ import CategoryOrSubcategoryDetails from "./subcomponents/CategoryOrSubcategoryD
 localStorage.removeItem("cart");
      const storeProducts = React.useCallback(async () => {
 
-              const storedProducts = await getProducts(token);
+              const response = await getProducts(token, true);
 
-              setProducts(storedProducts); // Provide the products to children of this component
+              if (response.success) {
+
+                  const storedProducts = response.data.products;
+
+                  const categories = response.data.productCategoriesAndSubcategories.categories;
+
+                  const subcategories = response.data.productCategoriesAndSubcategories.subcategories;
+
+                  setProducts(storedProducts); // Provide the products to children of this component
+
+                  setCategories(categories);
+
+                  setSubcategories(subcategories);
+
+              }
 
      }, []);
 

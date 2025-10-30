@@ -8,14 +8,34 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use App\Models\ProductCategory;
 use App\Models\ProductSubcategory;
+use App\Models\ProductCategory;
+use App\Models\ProductSubCategory;
 
 class ProductController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
+
+        $validated = $request->validate([
+          "getCategories" => "sometimes|boolean"
+        ]);
+
+        $data = [
+          "products" => Product::all(),
+          "productCategoriesAndSubcategories" => null
+        ];
+
+        if ($validated["getCategories"] ? true : null):
+
+            $data["productCategoriesAndSubcategories"] = [
+              "categories" => ProductCategory::all(),
+              "subcategories" => ProductSubcategory::all()
+            ];
+
+        endif;
 
         return response()->json([
           "message" => "OK",
-          "data" => Product::all(),
+          "data" => $data,
           "success" => true
         ]);
 

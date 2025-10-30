@@ -11,13 +11,13 @@
 
      const json = await response.json();
 
-     const products = json.data;
+     const data = json;
 
-     const productsToLocalStorage = JSON.stringify(products);
+     const productsToLocalStorage = JSON.stringify(data.data.products);
 
      localStorage.setItem("products", productsToLocalStorage);
 
-     return products;
+     return data;
  }
 
  export default fetchProduct;

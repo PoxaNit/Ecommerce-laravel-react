@@ -13,6 +13,7 @@ import ProductCategoryFilter from "./subcomponents/ProductCategoryFilter.jsx";
 import CreateProduct from "./subcomponents/CreateProduct.jsx";
 import ManageProductCategories from "./subcomponents/ManageProductCategories.jsx";
 import CategoryOrSubcategoryDetails from "./subcomponents/CategoryOrSubcategoryDetails.jsx";
+import getCategoriesAndSubcategories from "../../functions/getCategoriesAndSubcategories.jsx";
 
  function Shop ({closeShop = () => {}}) {
 
@@ -91,15 +92,17 @@ localStorage.removeItem("cart");
 
                   const storedProducts = response.data.products;
 
-                  const categories = response.data.productCategoriesAndSubcategories.categories;
-
-                  const subcategories = response.data.productCategoriesAndSubcategories.subcategories;
-
                   setProducts(storedProducts); // Provide the products to children of this component
 
-                  setCategories(categories);
+              }
 
-                  setSubcategories(subcategories);
+              const response2 = await getCategoriesAndSubcategories(token);
+
+              if (response2.success) {
+
+                  setCategories(response2.data.categories);
+
+                  setSubcategories(response2.data.subcategories);
 
               }
 
@@ -329,7 +332,11 @@ localStorage.removeItem("cart");
          return (
            <ShopContext.Provider value={{
              categoryOrSubcategoryInDetails,
-             setShowCategoriesManager
+             setShowCategoriesManager,
+             categories,
+             setCategories,
+             subcategories,
+             setSubcategories
            }}>
 
                <CategoryOrSubcategoryDetails showThisComponent={setCategoryOrSubcategoryInDetails}/>

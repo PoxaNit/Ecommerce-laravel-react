@@ -9,7 +9,9 @@ import UpdateCategoryForm from "./UpdateCategoryForm.jsx";
 
      const {
        categoryOrSubcategoryInDetails,
-       setShowCategoriesManager
+       setShowCategoriesManager,
+       setCategories,
+       setSubcategories
      } = React.useContext(ShopContext);
 
      const {
@@ -57,7 +59,7 @@ import UpdateCategoryForm from "./UpdateCategoryForm.jsx";
          }
 
          <button
-           onClick={async () => setShowUpdateForm(true)}
+           onClick={() => setShowUpdateForm(true)}
          >Update</button>
 
          <button
@@ -67,6 +69,16 @@ import UpdateCategoryForm from "./UpdateCategoryForm.jsx";
                const isSubcategory = shortName?.parentCategory ? "s" : null;
 
                const response = await deleteCategoryOrSubcategory(token, shortName.id, isSubcategory);
+
+               if (isSubcategory) {
+
+                   setSubcategories(response.data);
+
+                   return null;
+
+               }
+
+               setCategories(response.data);
 
            }}
          >Delete</button>

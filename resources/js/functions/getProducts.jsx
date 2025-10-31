@@ -1,6 +1,9 @@
 import fetchProducts from "./fetchProducts.jsx";
 
- async function getProducts (token = "") {
+ async function getProducts (
+   token = "",
+   getCategoriesAlso = true
+ ) {
 
      const localProducts = localStorage.getItem("products");
 
@@ -12,7 +15,7 @@ import fetchProducts from "./fetchProducts.jsx";
 
      } else {
 
-         const fetchedProducts = await fetchProducts(token);
+         const fetchedProducts = await fetchProducts(token, getCategoriesAlso);
 
          return fetchedProducts;
 

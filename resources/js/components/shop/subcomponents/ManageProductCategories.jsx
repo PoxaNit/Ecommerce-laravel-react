@@ -7,10 +7,6 @@ import ShopContext from "../../../contexts/ShopContext.jsx";
    showThisComponent = () => {}
  }) {
 
-     const [categoriesList, setCategoriesList] = React.useState([]);
-
-     const [subcategoriesList, setSubcategoriesList] = React.useState([]);
-
      const [listOnDisplay, setListOnDisplay] = React.useState([]);
 
      const {
@@ -18,28 +14,13 @@ import ShopContext from "../../../contexts/ShopContext.jsx";
      } = React.useContext(AuthContext);
 
      const {
-       setCategoryOrSubcategoryInDetails
+       setCategoryOrSubcategoryInDetails,
+       categories,
+       setCategories,
+       subcategories,
+       setSubcategories
      } = React.useContext(ShopContext);
 
-     React.useEffect(() => {
-
-         (async function () {
-
-             const response = await getCategoriesAndSubcategories(token);
-
-             if (response.success) {
-
-                 setCategoriesList(response.data.categories);
-
-                 setSubcategoriesList(response.data.subcategories);
-
-                 setListOnDisplay(response.data.categories);
-
-             }
-
-         })();
-
-     }, []);
 
      return (
        <>
@@ -57,9 +38,9 @@ import ShopContext from "../../../contexts/ShopContext.jsx";
 
              <section>
 
-               <button onClick={() => setListOnDisplay(categoriesList)}>Categories</button>
+               <button onClick={() => setListOnDisplay(categories)}>Categories</button>
 
-               <button onClick={() => setListOnDisplay(subcategoriesList)}>Sub-Categories</button>
+               <button onClick={() => setListOnDisplay(subcategories)}>Sub-Categories</button>
 
              </section>
 

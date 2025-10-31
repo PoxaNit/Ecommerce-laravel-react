@@ -1,5 +1,5 @@
 
- const fetchProduct = async (token) => {
+ const fetchProduct = async (token, getCategoriesAlso = true) => {
 
      const response =
        await fetch("http://localhost:8000/api/products", {

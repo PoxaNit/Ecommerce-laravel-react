@@ -14,7 +14,9 @@ import updateCategoryOrSubcategory from "../../../functions/updateCategoryOrSubc
      } = React.useContext(AuthContext);
 
      const {
-       categoryOrSubcategoryInDetails
+       categoryOrSubcategoryInDetails,
+       setCategories,
+       setSubcategories
      } = React.useContext(ShopContext);
 
 
@@ -51,7 +53,19 @@ import updateCategoryOrSubcategory from "../../../functions/updateCategoryOrSubc
           if (response.success)
               updateButtonRef.current.disabled = true;
 
-          setShowMessage({show: true, text: response.message});
+              setShowMessage({show: true, text: response.message});
+
+          if (dataToSend.parentCategory) { // If the object that was updated was a subcategory, it's true (obviously because only subcategory has this property)
+
+              setSubcategories(response.data);
+
+          } else {
+
+              setCategories(response.data.categories);
+
+              setSubcategories(response.data.subcategories); // With the parentCategory properties updated
+
+          }
 
      }, []);
 

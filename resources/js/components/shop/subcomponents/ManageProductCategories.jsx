@@ -7,8 +7,6 @@ import ShopContext from "../../../contexts/ShopContext.jsx";
    showThisComponent = () => {}
  }) {
 
-     const [listOnDisplay, setListOnDisplay] = React.useState([]);
-
      const {
        token
      } = React.useContext(AuthContext);
@@ -21,6 +19,8 @@ import ShopContext from "../../../contexts/ShopContext.jsx";
        setSubcategories
      } = React.useContext(ShopContext);
 
+
+     const [listOnDisplay, setListOnDisplay] = React.useState(categories);
 
      return (
        <>

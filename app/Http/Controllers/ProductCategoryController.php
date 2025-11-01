@@ -65,7 +65,8 @@ class ProductCategoryController extends Controller
         endif;
 
 
-        if ($validated["name"] !== $category->name):
+       // Check if there is already a category with this name
+        if (!(ProductCategory::where("name", $validated["name"])->exists())):
 
             foreach (Product::all() as $product):
 
@@ -94,14 +95,28 @@ class ProductCategoryController extends Controller
 
             endforeach;
 
+
+            $category->update($validated);
+
+        else:
+
+            return response()->json([
+              "message" => "Category with name $validated[name] already exists.",
+              "data" => null,
+              "success" => false
+            ]);
+
         endif;
 
 
-        $category->update($validated);
+        $data = [
+          "categories" => ProductCategory::all(),
+          "subcategories" => ProductSubcategory::all() // In the frontend, the components uses the categories's parentCategory property, so it can be worthy to sync the data
+        ];
 
         return response()->json([
           "message" => "Updated!",
-          "data" => ProductCategory::all(),
+          "data" => $data,
           "success" => true
         ], 200);
 

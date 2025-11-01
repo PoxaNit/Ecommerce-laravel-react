@@ -8,11 +8,11 @@ import ShopContext from "../../../contexts/ShopContext.jsx";
        setProductListOnDisplay,
        setProductListFiltered,
        setSubCategoryFilter,
-       setCategoryFilter
+       setCategoryFilter,
+       categories,
+       subcategories,
      } = React.useContext(ShopContext);
 
-     const [categories, setCategories] = React.useState([]);
-     const [subCategories, setSubCategories] = React.useState([]);
 
      // Keeps which primary category of products the user chose to filter
      const [categoryOnDisplay, setCategoryOnDisplay] = React.useState("");
@@ -20,72 +20,12 @@ import ShopContext from "../../../contexts/ShopContext.jsx";
      const [showCategoryButtons, setShowCategoryButtons] = React.useState(true);
      const [showSubCategoryButtons, setShowSubCategoryButtons] = React.useState(false);
 
-     const extractCategoriesFromProducts = React.useCallback(() => {
-
-         let categoryList = [];
-
-         let subCategoryList = [];
-
-         products.forEach(product => {
-
-             const category = product.categories.category;
-
-             if (categoryList.some(c => c === category)) return null;
-
-             categoryList.push(category);
-
-         });
-
-
-         products.forEach(product => {
-
-             const subCategory = product.categories.subcategory;
-
-             if (subCategoryList.some(c => c === subCategory)) return null;
-
-             subCategoryList.push(subCategory);
-
-         });
-
-         setCategories(categoryList);
-
-         setSubCategories(subCategoryList);
-
-     }, [products]);
-
-
-
-         const executeUseEffect = React.useRef(true);
-
-         React.useEffect(() => {
-
-             if (executeUseEffect.current) {
-
-                 extractCategoriesFromProducts();
-
-                 executeUseEffect.current = false;
-
-             }
-
-         }, []);
-
 
      function ProductSubCategoryFilter ({category}) {
 
 
      // Filtering the subcategories of category
-         const productsFiltered = products.filter(p => p.categories.category === category);
-
-         let subCategories = [];
-
-         productsFiltered.forEach(p => {
-
-             if (subCategories.some(c => c === p.categories.subcategory)) return null;
-
-             subCategories.push(p.categories.subcategory);
-
-         });
-
+         let subcategoriesToShow = subcategories.filter(s => s.parentCategory === category);
 
          return (
            <>
@@ -112,11 +52,11 @@ import ShopContext from "../../../contexts/ShopContext.jsx";
 
              }}>All</button>
 
-             {subCategories.map(c => {
+             {subcategoriesToShow.map(c => {
 
                  return (<button onClick={() => {
 
-                     setSubCategoryFilter(c);
+                     setSubCategoryFilter(c.name);
 
                      setCategoryFilter("");
 
@@ -124,7 +64,7 @@ import ShopContext from "../../../contexts/ShopContext.jsx";
 
                      showThisComponent(false);
 
-                 }}>{c}</button>);
+                 }}>{c.name}</button>);
 
              })}
 
@@ -158,13 +98,13 @@ import ShopContext from "../../../contexts/ShopContext.jsx";
 
                return (<button onClick={() => {
 
-                   setCategoryOnDisplay(c);
+                   setCategoryOnDisplay(c.name);
 
                    setShowSubCategoryButtons(true);
 
                    setShowCategoryButtons(false);
 
-               }}>{c}</button>);
+               }}>{c.name}</button>);
 
            })}
         </> )}

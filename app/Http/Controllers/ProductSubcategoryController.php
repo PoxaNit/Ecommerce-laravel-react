@@ -88,7 +88,9 @@ class ProductSubCategoryController extends Controller
         endif;
 
 
-        if ($validated["name"] !== $subcategory->name):
+
+       // Check if there is already a subcategory with this name
+        if (!(ProductSubcategory::where("name", $validated["name"])->exists())):
 
             foreach (Product::all() as $product):
 
@@ -109,9 +111,17 @@ class ProductSubCategoryController extends Controller
 
             endforeach;
 
-        endif;
+            $subcategory->update($validated);
 
-        $subcategory->update($validated);
+        else:
+
+            return response()->json([
+              "message" => "Subcategory with name $validated[name] already exists.",
+              "data" => null,
+              "success" => false
+            ]);
+
+        endif;
 
         return response()->json([
           "message" => "Updated!",

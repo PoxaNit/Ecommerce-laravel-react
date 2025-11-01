@@ -289,7 +289,9 @@ localStorage.removeItem("cart");
              setProductListOnDisplay,
              setCategoryFilter,
              setSubCategoryFilter,
-             setProductListFiltered
+             setProductListFiltered,
+             categories,
+             subcategories
            }}>
 
              <ProductCategoryFilter showThisComponent={setShowCategoryFilter} />
@@ -316,7 +318,11 @@ localStorage.removeItem("cart");
          return (
 
            <ShopContext.Provider value={{
-             setCategoryOrSubcategoryInDetails
+             setCategoryOrSubcategoryInDetails,
+             categories,
+             setCategories,
+             subcategories,
+             setSubcategories
            }}>
 
              <ManageProductCategories

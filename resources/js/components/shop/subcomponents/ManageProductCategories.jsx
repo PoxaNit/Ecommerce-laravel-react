@@ -22,6 +22,12 @@ import ShopContext from "../../../contexts/ShopContext.jsx";
 
      const [listOnDisplay, setListOnDisplay] = React.useState(categories);
 
+React.useEffect(() => {
+
+    console.log(`categories: ${categories}`, `subcategories: ${subcategories}`)
+
+}, [])
+
      return (
        <>
 

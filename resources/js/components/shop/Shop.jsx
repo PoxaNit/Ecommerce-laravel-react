@@ -322,7 +322,8 @@ localStorage.removeItem("cart");
              categories,
              setCategories,
              subcategories,
-             setSubcategories
+             setSubcategories,
+             setProducts
            }}>
 
              <ManageProductCategories

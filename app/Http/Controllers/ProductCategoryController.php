@@ -111,7 +111,8 @@ class ProductCategoryController extends Controller
 
         $data = [
           "categories" => ProductCategory::all(),
-          "subcategories" => ProductSubcategory::all() // In the frontend, the components uses the categories's parentCategory property, so it can be worthy to sync the data
+          "subcategories" => ProductSubcategory::all(), // In the frontend, the components uses the categories's parentCategory property, so it can be worthy to sync the data
+          "products" => Product::all()
         ];
 
         return response()->json([

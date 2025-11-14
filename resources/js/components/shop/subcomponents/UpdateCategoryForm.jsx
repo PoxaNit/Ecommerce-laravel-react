@@ -16,7 +16,8 @@ import updateCategoryOrSubcategory from "../../../functions/updateCategoryOrSubc
      const {
        categoryOrSubcategoryInDetails,
        setCategories,
-       setSubcategories
+       setSubcategories,
+       setProducts
      } = React.useContext(ShopContext);
 
 
@@ -48,16 +49,19 @@ import updateCategoryOrSubcategory from "../../../functions/updateCategoryOrSubc
            parentCategory: parentCategoryInputRef.current?.value
          };
 
-         const response = await updateCategoryOrSubcategory(token, shortName.id, dataToSend, shortName?.parentCategory);
-
+         const response = await updateCategoryOrSubcategory(token, shortName.id, dataToSend, shortName?.parentCategory ? "s" : null);
+console.log(`response: ${JSON.stringify(response)}`)
           if (response.success)
               updateButtonRef.current.disabled = true;
 
+
               setShowMessage({show: true, text: response.message});
+
+
 
           if (dataToSend.parentCategory) { // If the object that was updated was a subcategory, it's true (obviously because only subcategory has this property)
 
-              setSubcategories(response.data);
+              setSubcategories(response.data.subcategories);
 
           } else {
 
@@ -66,6 +70,8 @@ import updateCategoryOrSubcategory from "../../../functions/updateCategoryOrSubc
               setSubcategories(response.data.subcategories); // With the parentCategory properties updated
 
           }
+
+          setProducts(response.data.products);
 
      }, []);
 

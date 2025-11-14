@@ -19,6 +19,8 @@
      });
 
      const json = await response.json();
+console.log(`json: ${JSON.stringify(json)}`)
+     localStorage.setItem("products", JSON.stringify(json.data.products));
 
      return json;
 

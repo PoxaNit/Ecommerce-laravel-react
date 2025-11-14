@@ -11,7 +11,15 @@ import fetchProducts from "./fetchProducts.jsx";
 
          const json = JSON.parse(localProducts);
 
-         return json;
+         const data = {
+           products: json
+         };
+
+         return {
+           message: "OK",
+           data: data,
+           success: true
+         };
 
      } else {
 

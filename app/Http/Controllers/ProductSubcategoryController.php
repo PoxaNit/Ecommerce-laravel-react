@@ -123,9 +123,15 @@ class ProductSubCategoryController extends Controller
 
         endif;
 
+        $data = [
+          "categories" => ProductCategory::all(),
+          "subcategories" => ProductSubcategory::all(),
+          "products" => Product::all()
+        ];
+
         return response()->json([
           "message" => "Updated!",
-          "data" => ProductSubCategory::all(),
+          "data" => $data,
           "success" => true
         ], 200);
 

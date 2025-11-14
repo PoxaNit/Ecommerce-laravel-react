@@ -18,7 +18,8 @@ import getRandomNumber from "../../../../../functions/getRandomNumber.jsx";
 
      const {
        userId,
-       token
+       token,
+       setUserBalance
      } = React.useContext(AuthContext);
 
      const {
@@ -156,7 +157,7 @@ import getRandomNumber from "../../../../../functions/getRandomNumber.jsx";
 		       true
 		     );
 
-		     await sendMatchResults(
+		     const response = await sendMatchResults(
 		       userId,
 		       gameOnDisplay.id,
 		       "victory",
@@ -164,6 +165,8 @@ import getRandomNumber from "../../../../../functions/getRandomNumber.jsx";
 		       generatedMoney,
 		       token
 		     );
+
+                     setUserBalance(response.data.user_balance);
 
 		 })();
 

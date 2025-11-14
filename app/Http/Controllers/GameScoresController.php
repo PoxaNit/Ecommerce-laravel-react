@@ -160,8 +160,9 @@ class GameScoresController extends Controller
 
 
         $data = [
-          "match_score" => $game_score,
-          "money_earned" => $validated["money_reward"]
+          "match_score"  => $game_score,
+          "money_earned" => $validated["money_reward"],
+          "user_balance" => $wallet->balance
         ];
 
 

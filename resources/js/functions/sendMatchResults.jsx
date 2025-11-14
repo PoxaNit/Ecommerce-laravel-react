@@ -8,9 +8,6 @@
    token
  ) {
 
-console.log(`executing sendMatchResults...`)
-console.log(`data received as arguments: ${userId}, ${gameId}, ${result}, ${points_reward}, ${money_reward}, ${token}`)
-
      const response = await fetch(`http://localhost:8000/api/users/${userId}/game_stats/game/${gameId}`, {
        headers:{
          Accept:"application/json",
@@ -23,7 +20,11 @@ console.log(`data received as arguments: ${userId}, ${gameId}, ${result}, ${poin
          points_reward:points_reward,
          money_reward:money_reward
        })
-     }).then(r => r.text()).then(t => console.log(t));
+     });
+
+     const json = await response.json();
+console.log(JSON.stringify(json))
+     return json;
 
  }
 

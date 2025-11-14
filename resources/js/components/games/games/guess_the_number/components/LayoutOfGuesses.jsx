@@ -84,6 +84,8 @@ import PlayerMessage from "../../../components/PlayerMessage.jsx";
                <button
                  onClick={() => {
 
+                   if (!numberRef.current.value) return;
+
                    setChoosenNumber(numberRef.current.value);
 
 		   setPlayLoop(true);

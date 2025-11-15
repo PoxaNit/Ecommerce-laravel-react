@@ -1,5 +1,6 @@
 import React from "react";
 import ShopContext from "../../../contexts/ShopContext.jsx";
+import HubContext from "../../../contexts/HubContext.jsx";
 
  function ProductCategoryFilter ({showThisComponent = () => {}}) {
 
@@ -10,8 +11,12 @@ import ShopContext from "../../../contexts/ShopContext.jsx";
        setSubCategoryFilter,
        setCategoryFilter,
        categories,
-       subcategories,
+       subcategories
      } = React.useContext(ShopContext);
+
+     const {
+       adminMode
+     } = React.useContext(HubContext);
 
 
      // Keeps which primary category of products the user chose to filter
@@ -40,7 +45,7 @@ import ShopContext from "../../../contexts/ShopContext.jsx";
 
              <button onClick={() => {
 
-                 setCategoryFilter("");
+                 setCategoryFilter(""); // To avoid some bugs
 
                  setCategoryFilter(category);
 
@@ -82,7 +87,7 @@ import ShopContext from "../../../contexts/ShopContext.jsx";
          {showCategoryButtons && (<>
            <button onClick={() => {
 
-               setProductListOnDisplay(products);
+//               setProductListOnDisplay(products);
 
                setProductListFiltered(false);
 
@@ -107,6 +112,23 @@ import ShopContext from "../../../contexts/ShopContext.jsx";
                }}>{c.name}</button>);
 
            })}
+
+           {adminMode && (
+             <button
+               onClick={() => {
+
+                   setSubCategoryFilter(null);
+
+                   setCategoryFilter("uncategorized");
+
+                   setProductListFiltered(true);
+
+                   showThisComponent(false);
+
+               }}
+             >Show uncategorized products</button>
+            )
+           }
         </> )}
 
          {showSubCategoryButtons && <ProductSubCategoryFilter category={categoryOnDisplay} />}

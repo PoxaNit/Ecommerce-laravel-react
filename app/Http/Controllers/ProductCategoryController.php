@@ -89,9 +89,13 @@ class ProductCategoryController extends Controller
 
             foreach (ProductSubcategory::all() as $subcategory):
 
-                $subcategory->parentCategory = $validated["name"];
+                if ($subcategory->parentCategory === $category->name):
 
-                $subcategory->save();
+                    $subcategory->parentCategory = $validated["name"];
+
+                    $subcategory->save();
+
+                endif;
 
             endforeach;
 
@@ -136,15 +140,6 @@ class ProductCategoryController extends Controller
 
             endforeach;
 
-
-            $product = ProductCategory::find($category_id);
-
-            if ($product):
-
-                $product->delete();
-
-            endif;
-
         else:
 
             return response()->json([
@@ -175,6 +170,8 @@ class ProductCategoryController extends Controller
             endif;
 
         endforeach;
+
+        $category->delete();
 
         return response()->json([
           "message" => "Deleted!",

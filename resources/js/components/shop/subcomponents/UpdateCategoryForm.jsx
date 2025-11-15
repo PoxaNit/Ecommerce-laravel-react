@@ -15,6 +15,7 @@ import updateCategoryOrSubcategory from "../../../functions/updateCategoryOrSubc
 
      const {
        categoryOrSubcategoryInDetails,
+       setCategoryOrSubcategoryInDetails,
        setCategories,
        setSubcategories,
        setProducts
@@ -37,10 +38,6 @@ import updateCategoryOrSubcategory from "../../../functions/updateCategoryOrSubc
      });
 
 
-   // The names of the fields of the data object to be updated
-     const [nameValue, setNameValue] = React.useState(shortName.name);
-     const [parentCategoryValue, setParentCategoryValue] = React.useState(shortName?.parentCategory);
-
 
      const updateData = React.useCallback(async () => {
 
@@ -50,28 +47,39 @@ import updateCategoryOrSubcategory from "../../../functions/updateCategoryOrSubc
          };
 
          const response = await updateCategoryOrSubcategory(token, shortName.id, dataToSend, shortName?.parentCategory ? "s" : null);
-console.log(`response: ${JSON.stringify(response)}`)
-          if (response.success)
+
+
+
+          setShowMessage({show: true, text: response.message});
+
+          if (response.success) {
+
               updateButtonRef.current.disabled = true;
 
+              if (dataToSend?.parentCategory) { // If the object that was updated was a subcategory, it's true (obviously because only subcategory has this property)
 
-              setShowMessage({show: true, text: response.message});
+                  const updatedSubcategory = response.data.subcategories.find(s => s.id === data.id);
 
+                  setSubcategories(response.data.subcategories);
 
+                  setCategoryOrSubcategoryInDetails(updatedSubcategory);
 
-          if (dataToSend.parentCategory) { // If the object that was updated was a subcategory, it's true (obviously because only subcategory has this property)
+              } else {
 
-              setSubcategories(response.data.subcategories);
+                  const updatedCategory = response.data.categories.find(c => c.id === data.id);
 
-          } else {
+                  setCategories(response.data.categories);
 
-              setCategories(response.data.categories);
+                  setSubcategories(response.data.subcategories); // With the parentCategory properties updated
 
-              setSubcategories(response.data.subcategories); // With the parentCategory properties updated
+                  setCategoryOrSubcategoryInDetails(updatedCategory);
 
-          }
+              }
 
-          setProducts(response.data.products);
+             setProducts(response.data.products);
+
+         }
+
 
      }, []);
 
@@ -91,7 +99,6 @@ console.log(`response: ${JSON.stringify(response)}`)
          <input
            type="text"
            id="name"
-           onChange={e => setNameValue(e.target.value)}
            ref={nameInputRef}
          />
 
@@ -105,7 +112,6 @@ console.log(`response: ${JSON.stringify(response)}`)
                  <input
                    type="text"
                    id="parentCategory"
-                   onChange={e => parentCategoryValue(e.target.value)}
                    ref={parentCategoryInputRef}
                  />
                </>

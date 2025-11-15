@@ -23,7 +23,7 @@ import getCategoriesAndSubcategories from "../../functions/getCategoriesAndSubca
      } = React.useContext(AuthContext);
 
      // Keep all products became from backend in this component and children
-     const [products, setProducts] = React.useState({});
+     const [products, setProducts] = React.useState([]);
 
      // The existent categories of the products
      const [categories, setCategories] = React.useState([]);
@@ -68,7 +68,7 @@ import getCategoriesAndSubcategories from "../../functions/getCategoriesAndSubca
      const [showCategoriesManager, setShowCategoriesManager] = React.useState(false);
 
 
-   // When the admin is going managing the categories and subcategories of products and want to see it in details
+   // When the admin is going to manage the categories and subcategories of products and want to see it in details
      const [categoryOrSubcategoryInDetails, setCategoryOrSubcategoryInDetails] = React.useState(null);
 
 
@@ -81,6 +81,7 @@ import getCategoriesAndSubcategories from "../../functions/getCategoriesAndSubca
 
      // Depends on the productListFiltered, keeps the name of a product that the user has searched
      const [nameFilter, setNameFilter] = React.useState("");
+
 
 
 localStorage.removeItem("cart");
@@ -194,13 +195,17 @@ localStorage.removeItem("cart");
 
              } else {
 
-                 setProductListOnDisplay(products);
+                 const categorizedProducts = products.filter(p => p.categories.category !== "uncategorized");
+
+                 setProductListOnDisplay(categorizedProducts);
 
              }
 
          } else {
 
-             setProductListOnDisplay(products);
+             const categorizedProducts = products.filter(p => p.categories.category !== "uncategorized");
+
+             setProductListOnDisplay(categorizedProducts);
 
          }
 
@@ -339,11 +344,13 @@ localStorage.removeItem("cart");
          return (
            <ShopContext.Provider value={{
              categoryOrSubcategoryInDetails,
+             setCategoryOrSubcategoryInDetails,
              setShowCategoriesManager,
              categories,
              setCategories,
              subcategories,
-             setSubcategories
+             setSubcategories,
+             setProducts
            }}>
 
                <CategoryOrSubcategoryDetails showThisComponent={setCategoryOrSubcategoryInDetails}/>
@@ -396,7 +403,7 @@ localStorage.removeItem("cart");
          nameFilter,
          setNameFilter,
          subCategoryFilter,
-         setShowCategoriesManager
+         setShowCategoriesManager,
        }}>
 
 

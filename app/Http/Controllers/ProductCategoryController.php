@@ -173,9 +173,14 @@ class ProductCategoryController extends Controller
 
         $category->delete();
 
+        $data = [
+          "categories" => ProductCategory::all(),
+          "products"   => Product::all()
+        ];
+
         return response()->json([
           "message" => "Deleted!",
-          "data" => ProductCategory::all(),
+          "data" => $data,
           "success" => true
         ], 200);
 

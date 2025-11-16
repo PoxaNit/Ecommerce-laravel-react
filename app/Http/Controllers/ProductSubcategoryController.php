@@ -14,7 +14,7 @@ class ProductSubCategoryController extends Controller
 
         return response()->json([
           "message" => "OK",
-          "data" => ProductSubCategory::all(),
+          "data" => ProductSubcategory::all(),
           "success" => true
         ], 200);
 
@@ -51,7 +51,7 @@ class ProductSubCategoryController extends Controller
 
         return response()->json([
           "message" => "Created!",
-          "data" => ProductSubCategory::all(),
+          "data" => ProductSubcategory::all(),
           "success" => true
         ], 201);
 
@@ -75,7 +75,7 @@ class ProductSubCategoryController extends Controller
         endif;
 
 
-        $subcategory = ProductSubCategory::find($subcategory_id);
+        $subcategory = ProductSubcategory::find($subcategory_id);
 
         if (!$subcategory):
 
@@ -143,7 +143,7 @@ class ProductSubCategoryController extends Controller
 
         if ($subcategory):
 
-            ProductSubCategory::find($subcategory_id)->delete();
+            ProductSubcategory::find($subcategory_id)->delete();
 
         else:
 
@@ -178,9 +178,15 @@ class ProductSubCategoryController extends Controller
         endforeach;
 
 
+        $data = [
+          "categories" => ProductCategory::all(),
+          "subcategories" => ProductSubcategory::all(),
+          "products" => Product::all()
+        ];
+
         return response()->json([
           "message" => "Deleted!",
-          "data" => ProductSubCategory::all(),
+          "data" => $data,
           "success" => true
         ], 200);
 

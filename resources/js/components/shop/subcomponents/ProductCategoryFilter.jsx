@@ -87,8 +87,6 @@ import HubContext from "../../../contexts/HubContext.jsx";
          {showCategoryButtons && (<>
            <button onClick={() => {
 
-//               setProductListOnDisplay(products);
-
                setProductListFiltered(false);
 
                setCategoryFilter("");

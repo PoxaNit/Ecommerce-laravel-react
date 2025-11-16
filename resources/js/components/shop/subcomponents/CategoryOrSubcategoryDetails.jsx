@@ -2,7 +2,6 @@ import React from "react";
 import ShopContext from "../../../contexts/ShopContext.jsx";
 import AuthContext from "../../../contexts/AuthContext.jsx";
 import deleteCategoryOrSubcategory from "../../../functions/deleteCategoryOrSubcategory.jsx";
-import updateCategoryOrSubcategory from "../../../functions/updateCategoryOrSubcategory.jsx";
 import UpdateCategoryForm from "./UpdateCategoryForm.jsx";
 
  function CategoryOrSubcategoryDetails ({showThisComponent}) {
@@ -11,7 +10,8 @@ import UpdateCategoryForm from "./UpdateCategoryForm.jsx";
        categoryOrSubcategoryInDetails,
        setShowCategoriesManager,
        setCategories,
-       setSubcategories
+       setSubcategories,
+       setProducts
      } = React.useContext(ShopContext);
 
      const {
@@ -69,16 +69,21 @@ import UpdateCategoryForm from "./UpdateCategoryForm.jsx";
                const isSubcategory = shortName?.parentCategory ? "s" : null;
 
                const response = await deleteCategoryOrSubcategory(token, shortName.id, isSubcategory);
+console.log(`response: ${JSON.stringify(response)}`)
+               setProducts(response.data.products);
 
                if (isSubcategory) {
 
-                   setSubcategories(response.data);
+                   setSubcategories(response.data.subcategories);
 
-                   return null;
+               } else {
+
+                   setCategories(response.data.categories);
 
                }
 
-               setCategories(response.data);
+               showThisComponent(false);
+               
 
            }}
          >Delete</button>

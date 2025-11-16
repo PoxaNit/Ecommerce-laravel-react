@@ -148,7 +148,9 @@ localStorage.removeItem("cart");
 
 
 
-
+React.useEffect(() => {
+console.log(`categories state: ${JSON.stringify(categories)}`, `subcategories state: ${JSON.stringify(subcategories)}`)
+}, [categories, subcategories])
 
 
 

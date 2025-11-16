@@ -48,7 +48,7 @@ import updateCategoryOrSubcategory from "../../../functions/updateCategoryOrSubc
 
          const response = await updateCategoryOrSubcategory(token, shortName.id, dataToSend, shortName?.parentCategory ? "s" : null);
 
-
+console.log(`updatedProducts: ${response.data.products}`)
 
           setShowMessage({show: true, text: response.message});
 
@@ -105,7 +105,7 @@ import updateCategoryOrSubcategory from "../../../functions/updateCategoryOrSubc
          {
            subcategoryMode && (
                <>
-                 <h2>Actual Parent Category: {shortName.parentCategory}</h2>
+                 <h2>Actual Parent Category: {shortName?.parentCategory}</h2>
 
                  <label htmlFor="parentCategory">Parent Category:</label>
 

@@ -24,7 +24,8 @@ class ProductSubCategoryController extends Controller
 
         $validated = $request->validate([
           "name" => "required|string",
-          "parentCategory" => "required|string"
+          "parentCategory" => "required|string",
+          "active" => "sometimes|boolean"
         ]);
 
         if (!ProductCategory::where("name", $validated["parentCategory"])->exists()):

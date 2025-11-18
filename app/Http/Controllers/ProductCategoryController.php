@@ -23,7 +23,8 @@ class ProductCategoryController extends Controller
     public function store (Request $request) {
 
         $validated = $request->validate([
-          "name" => "required|string"
+          "name" => "required|string",
+          "active" => "sometimes|boolean"
         ]);
 
         if (ProductCategory::where("name", $validated["name"])->exists()):

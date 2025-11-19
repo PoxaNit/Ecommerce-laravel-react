@@ -6,7 +6,7 @@
  ) {
 
      const urlMode = (mode === "s" ? "subcategories" : "categories");
-
+console.log(`urlMode: ${urlMode}`)
      const response = await fetch(`http://localhost:8000/api/product/${urlMode}`, {
        method: "POST",
        headers: {

@@ -2,6 +2,7 @@ import React from "react";
 import getCategoriesAndSubcategories from "../../../functions/getCategoriesAndSubcategories.jsx";
 import AuthContext from "../../../contexts/AuthContext.jsx";
 import ShopContext from "../../../contexts/ShopContext.jsx";
+import CreateCategoryOrSubcategory from "./CreateCategoryOrSubcategory.jsx";
 
  function ManageProductCategories ({
    showThisComponent = () => {}
@@ -21,6 +22,18 @@ import ShopContext from "../../../contexts/ShopContext.jsx";
 
 
      const [listOnDisplay, setListOnDisplay] = React.useState(categories);
+
+     const [showCreateForm, setShowCreateForm] = React.useState(false);
+
+     if (showCreateForm) {
+
+         return (
+             <CreateCategoryOrSubcategory
+               showThisComponent={setShowCreateForm}
+             />
+         );
+
+     }
 
 
      return (
@@ -42,6 +55,8 @@ import ShopContext from "../../../contexts/ShopContext.jsx";
                <button onClick={() => setListOnDisplay(categories)}>Categories</button>
 
                <button onClick={() => setListOnDisplay(subcategories)}>Sub-Categories</button>
+
+               <button onClick={() => setShowCreateForm(true)}>Create new</button>
 
              </section>
 

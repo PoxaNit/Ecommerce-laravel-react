@@ -39,9 +39,14 @@ class ProductCategoryController extends Controller
 
         ProductCategory::create($validated);
 
+        $data = [
+          "categories" => ProductCategory::all(),
+          "subcategories" => ProductSubcategory::all()
+        ];
+
         return response()->json([
           "message" => "Created!",
-          "data" => ProductCategory::all(),
+          "data" => $data,
           "success" => true
         ], 201);
 

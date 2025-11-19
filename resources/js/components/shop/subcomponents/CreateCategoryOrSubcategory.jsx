@@ -1,6 +1,8 @@
 import React from "react";
 import createCategoryOrSubcategory from "../../../functions/createCategoryOrSubcategory.jsx";
 import AuthContext from "../../../contexts/AuthContext.jsx";
+import ShopContext from "../../../contexts/ShopContext.jsx";
+import ShowMessage from "./ShowMessage.jsx";
 
  function CreateCategoryOrSubcategory ({showThisComponent}) {
 
@@ -8,6 +10,16 @@ import AuthContext from "../../../contexts/AuthContext.jsx";
        token
      } = React.useContext(AuthContext);
 
+     const {
+       setCategories,
+       setSubcategories
+     } = React.useContext(ShopContext);
+
+
+     const [displayMessage, setDisplayMessage] = React.useState({
+       show: false,
+       message: ""
+     });
 
      const [subcategoryMode, setSubcategoryMode] = React.useState(false);
 
@@ -32,15 +44,25 @@ import AuthContext from "../../../contexts/AuthContext.jsx";
          let data = {name: name, active: isActive};
  
          if (subcategoryMode)
-             data.parentCategory = true;
+             data.parentCategory = parentCategoryInputRef.current.value;
 
-         const response = await createCategoryOrSubcategory(token, data, subcategoryMode);
+         const response = await createCategoryOrSubcategory(token, data, subcategoryMode ? "s" : null);
 
-     }, []);
+         setDisplayMessage({show: true, message: response.message});
+
+         if (response.success) {
+
+             setCategories(response.data.categories);
+
+             setSubcategories(response.data.subcategories);
+
+         }
+
+     }, [subcategoryMode]);
 
 
      return (
-       <form>
+       <form onSubmit={e => e.preventDefault()}>
 
            <button
              onClick={() => showThisComponent(false)}
@@ -58,12 +80,12 @@ import AuthContext from "../../../contexts/AuthContext.jsx";
 
            <input type="text" id="name" ref={nameInputRef} />
 
-           {subCategoryMode && (
+           {subcategoryMode && (
+             <>
+               <label htmlFor="parentCategory">Parent category:</label>
 
-             <label htmlFor="parentCategory">Parent category:</label>
-
-             <input type="text" id="parentCategory" ref={parentCategoryInputRef} />
-
+               <input type="text" id="parentCategory" ref={parentCategoryInputRef} />
+             </>
            )}
 
            <label htmlFor="isActive">Is active:</label>
@@ -73,6 +95,12 @@ import AuthContext from "../../../contexts/AuthContext.jsx";
            <button
              onClick={e => submitData(e)}
            >Submit</button>
+
+           <section>
+             {displayMessage.show && (
+               <ShowMessage message={displayMessage.message} />
+             )}
+           </section>
 
        </form>
      );

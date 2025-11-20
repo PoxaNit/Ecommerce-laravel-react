@@ -7,7 +7,7 @@ use App\Models\Product;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use App\Models\ProductCategory;
-use App\Models\ProductSubCategory;
+use App\Models\ProductSubcategory;
 
 class ProductController extends Controller
 {
@@ -204,13 +204,30 @@ class ProductController extends Controller
 
         endif;
 
+        if (!ProductSubcategory::where("name", $data["categories"]->subcategory)->where("parentCategory", $data["categories"]->category)->exists()):
+
+            $categoryName = $data["categories"]->category;
+            $subcategoryName = $data["categories"]->subcategory;
+
+            return response()->json([
+              "message" => "Subcategory " . $data["categories"]->subcategory . " doesn't belong to category " . $data["categories"]->category,
+              "data" => null,
+              "success" => false
+            ], 400);
+
+        endif;
+
         $product = Product::findOrFail($id);
 
         $product->update($data);
 
+        $dataToSend = [
+          "products" => Product::all()
+        ];
+
         return response()->json([
           "message" => "Updated!",
-          "data" => Product::all(),
+          "data" => $dataToSend,
           "success" => true
         ], 200);
 

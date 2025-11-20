@@ -2,6 +2,7 @@ import React from "react";
 import AuthContext from "../../../contexts/AuthContext.jsx";
 import ShopContext from "../../../contexts/ShopContext.jsx";
 import editProduct from "../../../functions/editProduct.jsx";
+import ShowMessage from "./ShowMessage.jsx";
 
  function EditProduct ({
    showThisComponent = () => {},
@@ -44,6 +45,29 @@ import editProduct from "../../../functions/editProduct.jsx";
 
 
 
+     const [displayMessage, setDisplayMessage] = React.useState({
+       show: false,
+       message: ""
+     });
+
+     React.useEffect(() => {
+
+         nameInput.current.value = product.name;
+         descriptionInput.current.value = product.description;
+         short_description_input.current.value = product.short_description;
+         priceInput.current.value = product.price;
+         stockInput.current.value = product.stock;
+         weightInput.current.value = product.weight;
+         heightInput.current.value = product.height;
+         lengthInput.current.value = product.length;
+         widthInput.current.value = product.width;
+         categoryInput.current.value = product.categories.category;
+         subCategoryInput.current.value = product.categories.subcategory;
+         is_active_input.current.checked = product.is_active;
+
+     }, []);
+
+
      const sendData = React.useCallback(async () => {
 
          const requestBody = JSON.stringify({
@@ -65,11 +89,17 @@ import editProduct from "../../../functions/editProduct.jsx";
 
          localStorage.removeItem("products");
 
-         const updatedData = await editProduct(token, product.id, requestBody);
+         const response = await editProduct(token, product.id, requestBody);
 
-         setProducts(updatedData);
+         setDisplayMessage({show: true, message: response.message});
 
-         setShowProductDetails(false);
+         if (response.success) {
+
+             setProducts(response.data.products);
+
+             setShowProductDetails(false);
+
+         }
 
      });
 
@@ -90,7 +120,6 @@ import editProduct from "../../../functions/editProduct.jsx";
 
          <input
             id="name"
-            value={product.name}
             ref={nameInput}
          />
 
@@ -104,7 +133,6 @@ import editProduct from "../../../functions/editProduct.jsx";
 
          <textarea
             id="description"
-            value={product.description}
             ref={descriptionInput}
          >
 
@@ -120,7 +148,6 @@ import editProduct from "../../../functions/editProduct.jsx";
 
          <textarea
             id="short_description"
-            value={product.short_description}
             ref={short_description_input}
          >
 
@@ -137,7 +164,6 @@ import editProduct from "../../../functions/editProduct.jsx";
          <input
             type="number"
             id="price"
-            value={product.price}
             ref={priceInput}
          />
 
@@ -151,7 +177,6 @@ import editProduct from "../../../functions/editProduct.jsx";
 
          <input
             type="number"
-            value={product.stock}
             ref={stockInput}
          />
 
@@ -166,7 +191,6 @@ import editProduct from "../../../functions/editProduct.jsx";
          <input
             type="number"
             id="weight"
-            value={product.weight}
             ref={weightInput}
          />
 
@@ -181,7 +205,6 @@ import editProduct from "../../../functions/editProduct.jsx";
          <input
             type="number"
             id="height"
-            value={product.height}
             ref={heightInput}
          />
 
@@ -196,7 +219,6 @@ import editProduct from "../../../functions/editProduct.jsx";
          <input
             type="number"
             id="width"
-            value={product.width}
             ref={widthInput}
          />
 
@@ -211,7 +233,6 @@ import editProduct from "../../../functions/editProduct.jsx";
          <input
             type="number"
             id="length"
-            value={product.length}
             ref={lengthInput}
          />
 
@@ -225,7 +246,6 @@ import editProduct from "../../../functions/editProduct.jsx";
 
          <input
             id="category"
-            value={product.categories.category}
             ref={categoryInput}
          />
 
@@ -239,7 +259,6 @@ import editProduct from "../../../functions/editProduct.jsx";
 
          <input
             id="subCategory"
-            value={product.categories.subcategory}
             ref={subCategoryInput}
          />
 
@@ -260,6 +279,8 @@ import editProduct from "../../../functions/editProduct.jsx";
                 sendData();
             }}
          >Send Data</button>
+
+         {displayMessage.show && <ShowMessage message={displayMessage.message} />}
 
        </form>
      );

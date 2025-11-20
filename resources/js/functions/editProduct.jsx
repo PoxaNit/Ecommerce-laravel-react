@@ -13,10 +13,10 @@
 
 
      const responseJson = await response.json();
+console.log(`json: ${JSON.stringify(responseJson)}`)
+     if (responseJson.success) localStorage.setItem("products", JSON.stringify(responseJson.data.products));
 
-     await localStorage.setItem("products", JSON.stringify(responseJson.data));
-
-     return responseJson.data;
+     return responseJson;
 
  }
 

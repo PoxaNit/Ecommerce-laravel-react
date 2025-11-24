@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
 use App\Jobs\ExpireDiscountsJob;
 use App\Jobs\ImageDirectoryCleaner;
+use App\Jobs\BuyProducts;
+use App\Jobs\ReloadProductStock;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
@@ -12,3 +14,5 @@ Artisan::command('inspire', function () {
 
 Schedule::job(new ExpireDiscountsJob)->everySecond();
 Schedule::job(new ImageDirectoryCleaner)->everySecond();
+Schedule::job(new BuyProducts)->everySecond();
+Schedule::job(new ReloadProductStock)->everySecond();

@@ -1,6 +1,6 @@
 import React from "react";
 import AuthContext from "../../contexts/AuthContext.jsx";
-
+import styles from "../../../css/LoginForm.module.css";
 
  function LoginForm ({
    changeForm = () => {} // This change from this form to the register form.
@@ -92,7 +92,7 @@ import AuthContext from "../../contexts/AuthContext.jsx";
 
          <h1>Login</h1>
 
-         <form ref={form}>
+         <form id={styles.login_form} ref={form}>
 
            <label htmlFor="email">Email:</label>
 

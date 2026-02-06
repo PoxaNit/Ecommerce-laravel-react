@@ -1,0 +1,8 @@
+#login_form {
+  box-shadow: 1vw 0.3vw .7vw black;
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+  height:20vh;
+  font-size: 6vw;
+}

@@ -90,9 +90,9 @@ import styles from "../../../css/LoginForm.module.css";
 
        <>
 
-         <h1>Login</h1>
-
          <form id={styles.login_form} ref={form}>
+
+           <h1>Login</h1>
 
            <label htmlFor="email">Email:</label>
 

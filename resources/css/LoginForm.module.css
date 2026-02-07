@@ -4,5 +4,17 @@
   flex-direction: column;
   width: 80vw;
   height:20vh;
-  font-size: 6vw;
+  padding: 4vw;
+  justify-content: space-around;
+  margin: 12vw 0 0 5vw;
+}
+
+#login_form label,
+#login_form input,
+#login_form h1 {
+  font-size: 3vw;
+}
+
+#login_form input {
+  border-width: .2vw;
 }

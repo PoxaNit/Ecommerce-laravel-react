@@ -84,7 +84,6 @@ import getCategoriesAndSubcategories from "../../functions/getCategoriesAndSubca
 
 
 
-localStorage.removeItem("cart");
      const storeProducts = React.useCallback(async () => {
 
               const response = await getProducts(token, true);

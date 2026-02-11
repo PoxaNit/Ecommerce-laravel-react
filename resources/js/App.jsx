@@ -14,7 +14,6 @@ import NotAuthenticated from "./components/notAuthenticated/NotAuthenticated.jsx
      const [userBalance, setUserBalance] = React.useState(0.00);
      const [userIsAdmin, setUserIsAdmin] = React.useState(false);
 
-localStorage.removeItem("products");
 
      const findToken = React.useCallback(async () => {
 
@@ -25,6 +24,20 @@ localStorage.removeItem("products");
              setToken(token);
 
              setAuthenticated(true);
+
+             const user = JSON.parse(localStorage.getItem("user"));
+
+             setUserName(user.name);
+
+	     setUserEmail(user.email);
+
+             setUserId(user.id);
+
+             setUserBalance(user.wallet.balance);
+
+             if (user.role === "admin") setUserIsAdmin(true);
+
+             else setUserIsAdmin(false);
 
          }
 

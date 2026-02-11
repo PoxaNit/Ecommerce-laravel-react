@@ -15,6 +15,7 @@ import activeHouse from "../../../functions/activeHouse.jsx";
        setAllHouses,
        setHousesOnDisplay
      } = React.useContext(HousesContext);
+console.log("houseInDetails: ", houseInDetails)
 
      const {
        userId,

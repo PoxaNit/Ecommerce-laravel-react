@@ -6,7 +6,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use App\Models\Product;
 
-class ReloadProductStock implements ShouldQueue
+class DeactiveProducts implements ShouldQueue
 {
     use Queueable;
 
@@ -24,17 +24,13 @@ class ReloadProductStock implements ShouldQueue
     public function handle(): void
     {
 
-	$randomProduct = Product::where("stock", "<", 50)
-	->inRandomOrder()
+        $randomProduct = Product::where("is_active", 1)
+        ->inRandomOrder()
 	->first();
 
-	if ($randomProduct):
+        $randomProduct->is_active = 0;
 
-    	    $randomProduct->stock = 50;
-
-	    $randomProduct->save();
-
-	endif;
+	$randomProduct->save();
 
     }
 }

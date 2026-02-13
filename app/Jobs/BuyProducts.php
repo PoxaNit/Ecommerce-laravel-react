@@ -28,11 +28,13 @@ class BuyProducts implements ShouldQueue
 
         $activeProducts = $products->where("is_active", true)->all();
 
+        if (count($activeProducts) === 0) return;
+
         $randomIndex = rand(0, count($activeProducts) - 1);
 
         $productToBuy = $activeProducts[$randomIndex];
 
-        $randomNumberToBuy= rand(1, $productToBuy->stock);
+        $randomNumberToBuy = rand(1, $productToBuy->stock);
 
         $productToBuy->stock -= $randomNumberToBuy;
 

@@ -87,11 +87,11 @@ import getCategoriesAndSubcategories from "../../functions/getCategoriesAndSubca
      const storeProducts = React.useCallback(async () => {
 
               const response = await getProducts(token, true);
-
+console.log("response: ", response)
               if (response.success) {
 
                   const storedProducts = response.data.products;
-
+console.log("storedProducts: ", storedProducts)
                   setProducts(storedProducts); // Provide the products to children of this component
 
               }

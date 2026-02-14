@@ -10,7 +10,7 @@
        });
 
      const json = await response.json();
-
+console.log("fetched json: ", json)
      const data = json;
 
      const productsToLocalStorage = JSON.stringify(data.data.products);

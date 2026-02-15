@@ -10,7 +10,7 @@ import fetchProducts from "./fetchProducts.jsx";
      if (localProducts) {
 
          const json = JSON.parse(localProducts);
-
+console.log("products found in localStorage: ", json)
          const data = {
            products: json
          };

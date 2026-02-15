@@ -104,13 +104,6 @@ Route::get("games", [GamesController::class, "index"]);
 Route::get("games/{game_id}", [GamesController::class, "show"]);
 
 
-  Route::middleware([VerifyIfIsAdmin::class])->group(function () {
-
-       // Discount routes
-
-      Route::get("discounts/products", [DiscountController::class, "index"]);
-      Route::post("discounts/products/{product_id}", [DiscountController::class, "makeDiscount"]);
-
 
        // Product categories and subcategories routes
       Route::get("product/categories_subcategories", [ProductCategoryAndSubcategoryController::class, "index"]);
@@ -130,6 +123,13 @@ Route::get("games/{game_id}", [GamesController::class, "show"]);
       Route::patch("product/subcategories/{subcategory_id}", [ProductSubcategoryController::class, "update"]);
       Route::patch("product/subcategories/active/{subcategory_id}", [ProductSubcategoryController::class, "activation"]);
       Route::delete("product/subcategories/{subcategory_id}", [ProductSubcategoryController::class, "delete"]);
+
+  Route::middleware([VerifyIfIsAdmin::class])->group(function () {
+
+       // Discount routes
+
+      Route::get("discounts/products", [DiscountController::class, "index"]);
+      Route::post("discounts/products/{product_id}", [DiscountController::class, "makeDiscount"]);
 
   });
 

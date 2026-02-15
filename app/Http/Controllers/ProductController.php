@@ -18,7 +18,7 @@ class ProductController extends Controller
         ];
 
         return response()->json([
-          "message" => "OK. products in backend: ".Product::all(),
+          "message" => "OK",
           "data" => $data,
           "success" => true
         ]);

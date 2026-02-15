@@ -53,6 +53,8 @@ import NotAuthenticated from "./components/notAuthenticated/NotAuthenticated.jsx
 
              findToken();
 
+	     localStorage.removeItem("products");
+
              executeUseEffect.current = false;
 
          }

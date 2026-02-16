@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "../../../css/RegistrationForm.module.css";
 
  function RegistrationForm ({
    changeForm = () => {} // This is for when user changes from this form to login form
@@ -28,9 +29,9 @@ import React from "react";
      return (
        <>
 
-         <h1>Registration</h1>
+         <form ref={form} id={styles.regForm}>
 
-         <form ref={form}>
+           <h1>Registration</h1>
 
            <label htmlfor="name">Name:</label>
 

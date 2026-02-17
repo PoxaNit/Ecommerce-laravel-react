@@ -25,6 +25,8 @@ import AuthContext from "../../../contexts/AuthContext.jsx";
 
      const endTimeInput = React.useRef(null);
 
+     const messageP = React.useRef(null);
+
      const handlePercentChange = React.useCallback(() => {
 
          const n = parseFloat(percentInputRef.current.value.replace(",", ".")).toFixed(2);
@@ -61,6 +63,8 @@ import AuthContext from "../../../contexts/AuthContext.jsx";
 
          <h1>Aply Discount</h1>
 
+	 <h2>Date Format: YYYY-MM-DD HH:MM:SS</h2>
+
          <strong>Actual price: {product.price}</strong>
 
          <label htmlFor="discount_price">
@@ -94,8 +98,22 @@ import AuthContext from "../../../contexts/AuthContext.jsx";
          <input type="datetime" id="end" ref={endTimeInput}/>
 
          <button
-           onClick={() => aplyDiscount(token, product.id, percentInputRef.current.value, startTimeInput.current.value, endTimeInput.current.value)}
+           onClick={() => {
+
+	       if (endTimeInput.current.value.test(/[0-9]{4}-[0-9]{2}-[0-9{2} [0-9]{2}:[0-9]{2}:[0-9]/) && (startTimeInput.current.value && (startTimeInput.current.value.test(/[0-9]{2}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}/)) || true)) {
+
+                   aplyDiscount(token, product.id, percentInputRef.current.value, startTimeInput.current.value, endTimeInput.current.value)
+
+	       } else {
+
+                   messageP.current.value = "Incorrect Date Format!";
+
+               }
+
+           }}
          >Aply Discount</button>
+
+         <p ref={messageP}></p>
 
        </>
      );

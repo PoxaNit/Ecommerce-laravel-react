@@ -16,7 +16,7 @@
      });
 
      const json = await response.json();
-
+console.log("discount server response: ", json)
  }
 
  export default aplyDiscount;

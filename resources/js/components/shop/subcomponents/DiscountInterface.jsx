@@ -100,7 +100,24 @@ import AuthContext from "../../../contexts/AuthContext.jsx";
          <button
            onClick={() => {
 
-	       if (endTimeInput.current.value.test(/[0-9]{4}-[0-9]{2}-[0-9{2} [0-9]{2}:[0-9]{2}:[0-9]/) && (startTimeInput.current.value && (startTimeInput.current.value.test(/[0-9]{2}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}/)) || true)) {
+	       const endDate = "" + endTimeInput.current.value;
+               const startDate = "" + startTimeInput.current.value;
+               const regex = /[0-9]{2}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}/;
+console.log("input dates: ", endDate, startDate)
+
+	       if (endDate && regex.test(endDate)) {
+
+                   if (startDate) {
+
+                       if (startDate.test(startDate)) {
+
+                           aplyDiscount(token, product.id, percentInputRef.current.value, startDate, endDate)
+
+                       }
+
+                       return;
+
+                   }
 
                    aplyDiscount(token, product.id, percentInputRef.current.value, startTimeInput.current.value, endTimeInput.current.value)
 

@@ -31,15 +31,23 @@ class ExpireDiscountsJob implements ShouldQueue
 
             $endsAt   = \Carbon\Carbon::parse($discount->ends_at);
 
-            if (now()->between($startsAt, $endsAt)):
+            if ($discount->starts_at):
 
-                $discount->is_active = true;
+                if (now()->between($startsAt, $endsAt)):
 
-            else:
+                    $discount->is_active = true;
 
-                $discount->is_active = false;
+                else:
 
-            endif;
+                    $discount->is_active = false;
+
+                endif;
+
+	    else:
+
+		$discount->is_active = true;
+
+	    endif;
 
                 $discount->save();
 

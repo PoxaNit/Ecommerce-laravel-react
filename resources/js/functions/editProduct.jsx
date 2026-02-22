@@ -1,6 +1,6 @@
 
  async function editProduct (token, productId, json) {
-
+console.log("editing product: ", token, productId, json)
      const response = await fetch (`http://localhost:8000/api/products/${productId}`, {
        method: "PATCH",
        headers:{
@@ -13,7 +13,7 @@
 
 
      const responseJson = await response.json();
-console.log(`json: ${JSON.stringify(responseJson)}`)
+console.log("json: ", responseJson)
      if (responseJson.success) localStorage.setItem("products", JSON.stringify(responseJson.data.products));
 
      return responseJson;

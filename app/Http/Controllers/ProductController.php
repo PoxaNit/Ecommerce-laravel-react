@@ -125,7 +125,7 @@ class ProductController extends Controller
             $imagePath = "images/products/byUsers/{$fileName}";
         }
 
-        // Merge categories (JSON) e remove category/subcategory
+        // Merge categories (JSON) and remove category/subcategory
         $categoriesJson = json_encode([
           "category"    => $validated["category"],
           "subcategory" => $validated["subcategory"]
@@ -223,13 +223,14 @@ $beforeUpdate = $product;
         $product->update($data);
 
         $dataToSend = [
-          "products" => Product::all(),
+          "products" => Product::all()
           "updated product" => $product,
-          "product before update" => $beforeUpdate
+          "product before update" => $beforeUpdate,
+          "data variable" => $data
         ];
 
         return response()->json([
-          "message" => "Updated!",
+          "message" => "Updated! stock came from frontend: $validated[stock]. from data variable: $data[stock]",
           "data" => $dataToSend,
           "success" => true
         ], 200);

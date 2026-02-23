@@ -27,7 +27,7 @@ class ShoppingController extends Controller
         if ($validated["quantity"] > $product->stock):
 
             return response()->json([
-              "message" => "Quantity solicited is greater than stock!",
+              "message" => "Quantity solicited is greater than stock! test: ".$validated["quantity"],
               "data" => null,
               "success" => false
             ], 422);

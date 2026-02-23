@@ -218,11 +218,14 @@ class ProductController extends Controller
         endif;
 
         $product = Product::findOrFail($id);
+$beforeUpdate = $product;
 
         $product->update($data);
 
         $dataToSend = [
-          "products" => Product::all()
+          "products" => Product::all(),
+          "updated product" => $product,
+          "product before update" => $beforeUpdate
         ];
 
         return response()->json([

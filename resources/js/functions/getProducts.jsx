@@ -8,7 +8,7 @@ import fetchProducts from "./fetchProducts.jsx";
      const localProducts = localStorage.getItem("products");
 
      if (localProducts) {
-
+console.log("products in localStorage: ", localProducts)
          const json = JSON.parse(localProducts);
 console.log("products found in localStorage: ", json)
          const data = {

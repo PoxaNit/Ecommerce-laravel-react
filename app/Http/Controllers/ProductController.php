@@ -16,7 +16,7 @@ class ProductController extends Controller
         $data = [
           "products" => Product::all()
         ];
-var_dump($data);
+
         return response()->json([
           "message" => "OK",
           "data" => $data,
@@ -223,7 +223,7 @@ $beforeUpdate = $product;
         $product->update($data);
 
         $dataToSend = [
-          "products" => Product::all()
+          "products" => Product::all(),
           "updated product" => $product,
           "product before update" => $beforeUpdate,
           "data variable" => $data

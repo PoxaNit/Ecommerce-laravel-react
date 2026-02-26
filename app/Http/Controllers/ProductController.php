@@ -16,7 +16,7 @@ class ProductController extends Controller
         $data = [
           "products" => Product::all()
         ];
-
+var_dump($data);
         return response()->json([
           "message" => "OK",
           "data" => $data,
